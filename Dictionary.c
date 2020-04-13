@@ -1,17 +1,75 @@
 #include "Dictionary.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-#define SIZE 42
-#define LENGHT 10
-
-int fillEngDictionary(Dictionary* d)
+int listprint(List* node)
 {
-    d->wordsEngl1 = malloc(SIZE * sizeof(char*));
-    d->wordsEngl2 = malloc(SIZE * sizeof(char*));
-    d->wordsEngl3 = malloc(SIZE * sizeof(char*));
-    d->count = 0;
-    if (d->wordsEngl1 == NULL || d->wordsEngl2 == NULL || d->wordsEngl3 == NULL) {
+    if (!node) {
+        return -1;
+    }
+
+    List* ptr = node;
+    do {
+        printf("%2d %-10s", ptr->value, ptr->key);
+        ptr = ptr->next;
+    } while (ptr != NULL);
+    return 0;
+}
+
+int printDictionary(Dictionary* d)
+{
+    if (!d) {
+        return -1;
+    }
+    for (int i = 0; i < d->count; i++) {
+        listprint(d->lines[i]);
+        printf("\n");
+    }
+    return 0;
+}
+
+List* list_createnode(char* key, int value)
+{
+    List* p;
+    p = malloc(sizeof(*p));
+    if (p != NULL) {
+        p->key = key;
+        p->value = value;
+        p->next = NULL;
+    }
+    return p;
+}
+
+List* list_lookup(List* list, char* key)
+{
+    for (; list != NULL; list = list->next) {
+        if (strcmp(list->key, key) == 0) {
+            return list;
+        }
+    }
+    return NULL; /* Не нашли */
+}
+
+List* list_addend(List* node, char* key, int value)
+{
+    List* newnode = list_createnode(key, value);
+
+    if (node == NULL) {
+        return newnode;
+    }
+
+    List* temp = node;
+    while (temp->next != NULL) {
+        temp = temp->next;
+    }
+    temp->next = newnode;
+    return node;
+}
+
+int fillDictionary(Dictionary* d)
+{
+    if (d == NULL) {
         return -1;
     }
 
@@ -22,27 +80,42 @@ int fillEngDictionary(Dictionary* d)
         return -1;
     }
 
-    for (int i = 0; i < SIZE; i++) {
-        d->wordsEngl1[i] = malloc(LENGHT * sizeof(char));
-        d->wordsEngl2[i] = malloc(LENGHT * sizeof(char));
-        d->wordsEngl3[i] = malloc(LENGHT * sizeof(char));
-        if (!fscanf(file, "%s %s %s", d->wordsEngl1[i], d->wordsEngl2[i], d->wordsEngl3[i])) {
-            return -1;
-        }
-        d->count++;
-    }
-    fclose(file);
-    return 0;
-}
-
-int printEngDictionary(Dictionary* d)
-{
-    if (d->wordsEngl1 == NULL || d->wordsEngl2 == NULL || d->wordsEngl3 == NULL) {
+    fseek(file, 0, SEEK_END);
+    long pos = ftell(file);
+    if (pos > 0) {
+        rewind(file);
+    } else {
         return -1;
     }
-    fprintf(stdout, "Current dictionary:\n");
-    for (int i = 0; i < d->count; i++) {
-        fprintf(stdout, "%2d) %-10s %-10s %-10s\n", i + 1, d->wordsEngl1[i], d->wordsEngl2[i], d->wordsEngl3[i]);
+
+    char* str = malloc(sizeof(char) * 100);
+    if (str == NULL) {
+        return -1;
     }
+    char* pch;
+    char* word;
+    d->count = 0;
+
+    for (int i = 0; fgets(str, 100, file); i++) {
+        d->count++;
+
+        pch = strtok(str, " \n");
+
+        for (int j = 1; j < 4 && pch != NULL; j++) {
+            word = strdup(pch);
+            d->lines[i] = list_addend(d->lines[i], word, j);
+            pch = strtok(NULL, " \n");
+        }
+
+        while (pch != NULL) {
+            word = strdup(pch);
+            d->lines[i] = list_addend(d->lines[i], word, 0);
+            pch = strtok(NULL, " \n");
+        }
+    }
+    fclose(file);
+    free(str);
+    free(word);
+    free(pch);
     return 0;
 }

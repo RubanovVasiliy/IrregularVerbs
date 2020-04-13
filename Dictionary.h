@@ -2,12 +2,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+typedef struct List {
+    char* key;
+    int value;
+    struct List* next;
+} List;
+
 typedef struct Dictionary {
-    char** wordsEngl1;
-    char** wordsEngl2;
-    char** wordsEngl3;
+    List* lines[45];
     int count;
 } Dictionary;
 
-int printEngDictionary(Dictionary* d);
-int fillEngDictionary(Dictionary* d);
+int listprint(List* node);
+int printDictionary(Dictionary* d);
+int fillDictionary(Dictionary* d);
+List* list_createnode(char* key, int value);
+List* list_lookup(List* list, char* key);
+List* list_addend(List* node, char* key, int value);
