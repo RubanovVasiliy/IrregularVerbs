@@ -119,3 +119,16 @@ int fillDictionary(Dictionary* d)
     free(pch);
     return 0;
 }
+
+void generate_rand(int** a, unsigned n, unsigned range)
+{
+    *a = malloc(sizeof(int) * n);
+    unsigned dst = 0;
+
+    for (unsigned i = 0; i < range; ++i) {
+        if (rand() % (range - i) < n - dst) {
+            (*a)[dst++] = i;
+        }
+    }
+    assert(dst == n);
+}
