@@ -51,6 +51,16 @@ List* list_lookup(List* list, char* key)
     return NULL; /* Не нашли */
 }
 
+List* list_search(List* node, int value)
+{
+    for (; node != NULL; node = node->next) {
+        if (node->value == value) {
+            return node;
+        }
+    }
+    return NULL;
+}
+
 List* list_addend(List* node, char* key, int value)
 {
     List* newnode = list_createnode(key, value);
@@ -118,17 +128,4 @@ int fillDictionary(Dictionary* d)
     free(word);
     free(pch);
     return 0;
-}
-
-void generate_rand(int** a, unsigned n, unsigned range)
-{
-    *a = malloc(sizeof(int) * n);
-    unsigned dst = 0;
-
-    for (unsigned i = 0; i < range; ++i) {
-        if (rand() % (range - i) < n - dst) {
-            (*a)[dst++] = i;
-        }
-    }
-    assert(dst == n);
 }

@@ -1,42 +1,42 @@
-become became become становиться
-begin began begun 2
-break broke broken 3
-bring bought brought 4
-build built built 5
-shoose shose shosen 6
+become became become становиться 1
+begin began begun начинать 2
+break broke broken ломать 3
+bring bought brought приносить 4
+build built built строить 5
+shoose shose shosen выбирать 6
 come came come 7
-cut cut cut 1
-do did done 1 5 7 8
-draw drew drawn 2
-dream dreamt dreamt 3
-drink drank drunk 5 
-drive drove driven 6
-eat ate eaten 7
-fly flew flown 6
-forget forgot forgotten 3
-get got got 4
-give gave given 6
-go went gone 7
-have had had 4
-hear heard heard 3
-keep kept kept держаться сохранять
-know knew known 3
-learn learnt learnt 3
-leave left left 5 
-make made made 7
-meet met met 42
-put put put 3
-read read read 8
-run ran run 5
-say said said 4 4
-see saw seen 33 22
-sleep slept slept 4 
-speak apoke spoken 8 
-stand stood stood 3
-swim swam swum 3
-take took taken 2
-tell told told 1 
-think thought thought 6
-understand understood understood 0
-wake woke woken 9
-write wrote wroten 3
+cut cut cut резать 8
+do did done делать 9
+draw drew drawn рисовать 10
+dream dreamt dreamt мечтать 11
+drink drank drunk пить 12
+drive drove driven водить 13
+eat ate eaten есть 14
+fly flew flown летать 15
+forget forgot forgotten забывать 16
+get got got получить 17
+give gave given давать 18
+go went gone идти 19
+have had had иметь 20
+hear heard heard слышать 21
+keep kept kept держаться сохранять 22
+know knew known знать 23
+learn learnt learnt учить 24
+leave left left покидать 25
+make made made делать 26
+meet met met встречать 27
+put put put класть 28
+read read read читать 29
+run ran run бегать 30
+say said said сказать 31
+see saw seen видеть 32
+sleep slept slept спать 33 
+speak apoke spoken говорить 34 
+stand stood stood оставаться 35
+swim swam swum плавать 36
+take took taken принимать 37 
+tell told told говорить 38
+think thought thought думать 39
+understand understood understood понимать 40
+wake woke woken вставать 41
+write wrote wroten писать 42
