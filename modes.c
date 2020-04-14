@@ -7,6 +7,138 @@
 #include <string.h>
 #include <time.h>
 
+
+
+void mainMenu(void)
+{
+    printf("Greetings, this is a program for verifying irregular verbs, let's get started!\n");
+    printf("Enter any character to display the menu.\n");
+    char* a = malloc(sizeof(char) * 1000);
+    fgets(a, 1000, stdin);
+    free(a);
+tryAgain:
+    system("clear");
+    printf("1)Start testing\n"
+           "2)Instructions for working with the program\n"
+           "3)Exit application\n");
+    char b;
+    scanf("%s", &b);
+    if (!isdigit(b)) {
+        printf("Error");
+        exit(0);
+    } else {
+        switch (b) {
+        case '1':
+            system("clear");
+            printf("Choose difficulty level:\n"
+                   "\n"
+                   "1)First level\n"
+                   "2)Second leveкl\n"
+                   "3)Third level\n");
+            scanf("%s", &b);
+            if (!isdigit(b)) {
+                printf("error");
+                exit(0);
+            } else {
+                switch (b) {
+                case '1':
+                    system("clear");
+                    printf("1)Легкий режим тестирования\n"
+                           "2)Средний режим тестировани\n"
+                           "3)Сложный режим тестирования\n");
+                    scanf("%s", &b);
+                    if (!isdigit(b)) {
+                        printf("errror");
+                        exit(0);
+                    } else {
+                        switch (b) {
+                        case '1':
+                            system("clear");
+                            printf("Тут будет код легкого режима тестирования\n");
+                            break;
+                        case '2':
+                            system("clear");
+                            printf("Тут будет код среднего режима тестирования\n");
+                            break;
+                        case '3':
+                            system("clear");
+                            printf("тут будет код сложного режима тестирования\n");
+                            break;
+                        }
+                    }
+                    break;
+                case '2':
+                    system("clear");
+                    printf("1)Легкий режим тестирования\n"
+                           "2)Средний режим тестировани\n"
+                           "3)Сложный режим тестирования\n");
+                    scanf("%s", &b);
+                    if (!isdigit(b)) {
+                        printf("errror");
+                        exit(0);
+                    } else {
+                        switch (b) {
+                        case '1':
+                            system("clear");
+                            printf("Тут будет код легкого режима тестирования\n");
+                            break;
+                        case '2':
+                            system("clear");
+                            printf("тут будет код cреднего режима тестирования\n");
+                            break;
+                        case '3':
+                            system("clear");
+                            printf("тут будет код сложного режима тестирования\n");
+                            break;
+                        }
+                    }
+                    break;
+                case '3':
+                    system("clear");
+                    printf("1)Легкий режим тестирования\n"
+                           "2)Средний режим тестировани\n"
+                           "3)Сложный режим тестирования\n");
+                    scanf("%s", &b);
+                    if (!isdigit(b)) {
+                        printf("eerror");
+                        exit(0);
+                    } else {
+                        switch (b) {
+                        case '1':
+                            system("clear");
+                            printf("Тут будет код легкого режима тестирования\n");
+                            break;
+                        case '2':
+                            system("clear");
+                            printf("тут будет код cреднего режима тестирования\n");
+                            break;
+                        case '3':
+                            system("clear");
+                            printf("тут будет код сложного режима тестирования\n");
+                            break;
+                        }
+                    }
+                    break;
+                default:
+                    exit(0);
+                }
+            }
+            break;
+        case '2':
+            system("clear");
+            printf("Тут будет инстуркция по работе, ее надо прорабоать\n");
+            printf("Введите любой символ, чтобы выйти в главное меню\n");
+            scanf("%s", &b);
+            goto tryAgain;
+            break;
+        case '3':
+            exit(0);
+        default:
+            exit(0);
+        }
+    } 
+}
+
 void generate_rand(int** a, unsigned n, unsigned range)
 {
     *a = malloc(sizeof(int) * n);
