@@ -5,3 +5,4 @@
 
 void generate_rand(int** a, unsigned n, unsigned range);
 int firstMode(Dictionary* d, int count);
+void mainMenu(void);
