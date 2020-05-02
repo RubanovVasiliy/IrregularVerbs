@@ -6,3 +6,5 @@
 void generate_rand(int** a, unsigned n, unsigned range);
 int firstMode(Dictionary* d, int count);
 void mainMenu(void);
+int secondMode(Dictionary* d, int count);
+int thirdMode(Dictionary* d, int count);
