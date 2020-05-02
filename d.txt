@@ -1,9 +1,9 @@
 become became become становиться 1
 begin began begun начинать 2
 break broke broken ломать 3
-bring bought brought приносить 4
+bring brought brought приносить 4
 build built built строить 5
-shoose shose shosen выбирать 6
+choose chose chosen выбирать 6
 come came come 7
 cut cut cut резать 8
 do did done делать 9
