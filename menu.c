@@ -1,18 +1,18 @@
+#include "menu.h"
+#include "Dictionary.h"
+#include "menu_context.h"
+#include "modes.h"
 #include <ncurses.h>
 #include <stdio.h>
-#include "menu.h"
-#include "menu_context.h"
 
-
-void print_menu(WINDOW* menu_win, int highlight,int n_menu, const char ** choices)
+void print_menu(WINDOW* menu_win, int highlight, int n_menu, const char** choices)
 {
     int x, y, i;
     x = 2;
     y = 2;
     box(menu_win, 0, 0);
     for (i = 0; i < n_menu; ++i) {
-        if (highlight == i + 1) /* High light the present choice */
-        {
+        if (highlight == i + 1) {
             wattron(menu_win, A_REVERSE);
             mvwprintw(menu_win, y, x, "%s", choices[i]);
             wattroff(menu_win, A_REVERSE);
@@ -25,6 +25,8 @@ void print_menu(WINDOW* menu_win, int highlight,int n_menu, const char ** choice
 
 void main_menu()
 {
+    Dictionary* d = malloc(sizeof(Dictionary));
+    fillDictionary(d);
     WINDOW* menu_win;
     int highlight = 1;
     int choice = 0;
@@ -32,7 +34,7 @@ void main_menu()
     initscr();
     clear();
     noecho();
-    cbreak(); /* Line buffering disabled. pass on everything */
+    cbreak();
     int startx = (80 - WIDTH) / 2;
     int starty = (24 - HEIGHT) / 2;
     int n_menu = sizeof(menu) / sizeof(char*);
@@ -40,7 +42,7 @@ void main_menu()
     keypad(menu_win, TRUE);
 
     refresh();
-    print_menu(menu_win, highlight,n_menu,menu);
+    print_menu(menu_win, highlight, n_menu, menu);
     while (1) {
         c = wgetch(menu_win);
         switch (c) {
@@ -48,7 +50,7 @@ void main_menu()
             if (highlight == 1)
                 highlight = n_menu;
             else
-              --highlight;
+                --highlight;
             break;
         case KEY_DOWN:
             if (highlight == n_menu)
@@ -62,15 +64,14 @@ void main_menu()
         case 10:
             if (highlight == 3) {
                 choice = highlight;
-            }else if(highlight == 2){
-              instruction(highlight);
-              clear();
-              refresh();
-            } 
-            else{
-            mode_menu(highlight);
-            clear();
-            refresh();
+            } else if (highlight == 2) {
+                instruction();
+                clear();
+                refresh();
+            } else {
+                mode_menu(d, highlight);
+                clear();
+                refresh();
             }
             refresh();
             break;
@@ -78,8 +79,8 @@ void main_menu()
             refresh();
             break;
         }
-        print_menu(menu_win, highlight,n_menu,menu);
-        if (choice != 0) /* User did a choice come out of the infinite loop */
+        print_menu(menu_win, highlight, n_menu, menu);
+        if (choice != 0)
             break;
     }
     clrtoeol();
@@ -87,23 +88,23 @@ void main_menu()
     endwin();
 }
 
-void mode_menu(int mode)
+void mode_menu(Dictionary* d, int mode)
 {
     WINDOW* menu_2;
     int highlight = 1;
     int choice = 0;
     int c;
-    
+
     clear();
     noecho();
-    cbreak(); /* Line buffering disabled. pass on everything */
+    cbreak();
     int startx = (80 - WIDTH) / 2;
     int starty = (24 - HEIGHT) / 2;
     int n_menu2 = sizeof(menu2) / sizeof(char*);
     menu_2 = newwin(HEIGHT, WIDTH, starty, startx);
     keypad(menu_2, TRUE);
     refresh();
-    print_menu(menu_2, highlight,n_menu2,menu2);
+    print_menu(menu_2, highlight, n_menu2, menu2);
     while (1) {
         c = wgetch(menu_2);
         switch (c) {
@@ -111,7 +112,7 @@ void mode_menu(int mode)
             if (highlight == 1)
                 highlight = n_menu2;
             else
-              --highlight;
+                --highlight;
             break;
         case KEY_DOWN:
             if (highlight == n_menu2)
@@ -122,48 +123,46 @@ void mode_menu(int mode)
         case 10:
             if (highlight == 4) {
                 choice = highlight;
+            } else {
+                mode_menu_2(d, highlight);
             }
-            else {
-              mode_menu_2(highlight);
-            }
-            
+
             break;
         default:
             mvprintw(24, 0, "Hopefully it can be printed as '%c'. Select the field you need and press ENTER", c);
             refresh();
         }
-        print_menu(menu_2, highlight,n_menu2,menu2);
-        if (choice != 0) /* User did a choice come out of the infinite loop */
+        print_menu(menu_2, highlight, n_menu2, menu2);
+        if (choice != 0)
             break;
     }
     clrtoeol();
     refresh();
     destroy_win(menu_2);
 }
-    
-void destroy_win(WINDOW *local_win)
-{	
-	wrefresh(local_win);
-	delwin(local_win);
+
+void destroy_win(WINDOW* local_win)
+{
+    wrefresh(local_win);
+    delwin(local_win);
 }
 
-
-void mode_menu_2 (int mode) {
-  WINDOW* menu_3;
+void mode_menu_2(Dictionary* d, int mode)
+{
+    WINDOW* menu_3;
     int highlight = 1;
     int choice = 0;
     int c;
-    
     clear();
     noecho();
-    cbreak(); /* Line buffering disabled. pass on everything */
+    cbreak();
     int startx = (80 - WIDTH) / 2;
     int starty = (24 - HEIGHT) / 2;
-    int n_menu3 = sizeof(menu3)/sizeof(char*);
+    int n_menu3 = sizeof(menu3) / sizeof(char*);
     menu_3 = newwin(HEIGHT, WIDTH, starty, startx);
     keypad(menu_3, TRUE);
     refresh();
-    print_menu(menu_3, highlight,n_menu3,menu3);
+    print_menu(menu_3, highlight, n_menu3, menu3);
     while (1) {
         c = wgetch(menu_3);
         switch (c) {
@@ -171,7 +170,7 @@ void mode_menu_2 (int mode) {
             if (highlight == 1)
                 highlight = n_menu3;
             else
-              --highlight;
+                --highlight;
             break;
         case KEY_DOWN:
             if (highlight == n_menu3)
@@ -182,19 +181,18 @@ void mode_menu_2 (int mode) {
         case 10:
             if (highlight == 4) {
                 choice = highlight;
-            }
-            else {
-              testing(highlight);
-              clear();
-              refresh();
+            } else {
+                testing(d, mode, highlight);
+                clear();
+                refresh();
             }
             break;
         default:
-           mvprintw(24, 0, "Hopefully it can be printed as '%c'. Select the field you need and press ENTER", c);
+            mvprintw(24, 0, "Hopefully it can be printed as '%c'. Select the field you need and press ENTER", c);
             refresh();
         }
-        print_menu(menu_3, highlight,n_menu3,menu3);
-        if (choice != 0) /* User did a choice come out of the infinite loop */
+        print_menu(menu_3, highlight, n_menu3, menu3);
+        if (choice != 0)
             break;
     }
     clrtoeol();
@@ -202,64 +200,73 @@ void mode_menu_2 (int mode) {
     destroy_win(menu_3);
 }
 
-void instruction(int mode)
-{   
-	int c;
-	int highlight=0;
+void instruction()
+{
+    int c;
+    int highlight = 0;
     WINDOW* inst;
     clear();
     noecho();
-    cbreak(); /* Line buffering disabled. pass on everything */
+    cbreak();
     int startx = 0;
     int starty = 0;
     int n_instruct = sizeof(instruct) / sizeof(char*);
     inst = newwin(LINES, COLS, starty, startx);
     keypad(inst, TRUE);
     refresh();
-    print_menu(inst,highlight, n_instruct, instruct);
+    print_menu(inst, highlight, n_instruct, instruct);
     wrefresh(inst);
     while (1) {
-    	c=wgetch(inst);
-      switch (c) {
+        c = wgetch(inst);
+        switch (c) {
         case 10:
-        break;
-      }
-      refresh();
-        if (c != 0) 
-         break;
-         clrtoeol();
+            break;
+        }
+        refresh();
+        if (c != 0)
+            break;
+        clrtoeol();
     }
     clrtoeol();
     refresh();
     destroy_win(inst);
 }
 
-void testing (int mode)
-{   
-	  int c;
-	  int highlight=0;
+void testing(Dictionary* d, int mode, int level)
+{
+    int c;
+    int highlight = 0;
     WINDOW* test;
     clear();
-    noecho();
-    cbreak(); /* Line buffering disabled. pass on everything */
+    cbreak();
     int startx = 0;
     int starty = 0;
-    int n_testing = sizeof(testin) / sizeof(char*); 
+    int n_testing = sizeof(testin) / sizeof(char*);
     test = newwin(LINES, COLS, starty, startx);
     keypad(test, TRUE);
+
     refresh();
-    print_menu(test,highlight, n_testing, testin);
+
+    print_menu(test, highlight, n_testing, testin);
+    wprintw(test, "\nTest\n");
     wrefresh(test);
+    if (mode == 1) {
+
+    } else if (mode == 2) {
+
+    } else if (mode == 3) {
+    }
+
     while (1) {
-    	c=wgetch(test);
-      switch (c) {
+        c = wgetch(test);
+        switch (c) {
         case 10:
-        break;
-      }
-      refresh();
-        if (c != 0) 
-         break;
-          clrtoeol();
+            break;
+        }
+        refresh();
+        if (c != 0)
+            break;
+        clrtoeol();
     }
     clrtoeol();
     refresh();
