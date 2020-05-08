@@ -1,4 +1,4 @@
-#include "Dictionary.h"
+#include "dictionary.h"
 #include "menu.h"
 #include "modes.h"
 #include <locale.h>

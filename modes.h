@@ -1,5 +1,5 @@
 #pragma once
-#include "Dictionary.h"
+#include "dictionary.h"
 #include <stdio.h>
 #include <stdlib.h>
 

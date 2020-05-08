@@ -1,12 +1,11 @@
 #include "modes.h"
-#include "Dictionary.h"
+#include "dictionary.h"
 #include <assert.h>
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-
 
 void generate_rand(int** a, unsigned n, unsigned range)
 {
@@ -52,7 +51,7 @@ int firstMode(Dictionary* d, int count)
             score++;
         }
         node = list_search(d->lines[a[i]], 0);
-        sprintf(temp, "%d) Слово: %-10s Вы ввели: %-10s правильный ответ: %-10s\n", i+1, d->lines[a[i]]->key, str, node->key);
+        sprintf(temp, "%d) Слово: %-10s Вы ввели: %-10s правильный ответ: %-10s\n", i + 1, d->lines[a[i]]->key, str, node->key);
         strcat(result, temp);
     }
     sprintf(temp, "Ваш счет %.0f слов из %d, %.0f%%\n\n", score, count, score / count * 100);
@@ -69,7 +68,8 @@ int firstMode(Dictionary* d, int count)
     return score;
 }
 
-int secondMode(Dictionary *d, int count) {
+int secondMode(Dictionary* d, int count)
+{
 
     time_t t = time(NULL);
     struct tm* aTm = localtime(&t);
@@ -94,14 +94,14 @@ int secondMode(Dictionary *d, int count) {
     generate_rand(&a, count, d->count - 1);
 
     for (int i = 0; i < count; i++) {
-        r_word=list_search(d->lines[a[i]], 0);
+        r_word = list_search(d->lines[a[i]], 0);
         fprintf(stdout, "Введите перевод слова %s на английский язык:\n", r_word->key);
         fscanf(stdin, "%s", str);
         e_word = list_lookup(d->lines[a[i]], str);
         if (e_word != NULL) {
             score++;
         }
-        sprintf(temp, "%d) Слово: %-10s Вы ввели: %-10s правильный ответ: %-10s\n", i+1, r_word->key, str, e_word->key);
+        sprintf(temp, "%d) Слово: %-10s Вы ввели: %-10s правильный ответ: %-10s\n", i + 1, r_word->key, str, e_word->key);
         strcat(result, temp);
     }
     sprintf(temp, "Ваш счет %.0f слов из %d, %.0f%%\n\n", score, count, score / count * 100);
@@ -118,7 +118,8 @@ int secondMode(Dictionary *d, int count) {
     return score;
 }
 
-int thirdMode(Dictionary *d, int count) {
+int thirdMode(Dictionary* d, int count)
+{
 
     time_t t = time(NULL);
     struct tm* aTm = localtime(&t);
@@ -154,9 +155,9 @@ int thirdMode(Dictionary *d, int count) {
 
     for (int i = 0; i < count; i++) {
         r_word = list_search(d->lines[a[i]], 0);
-        e1_word_inf=list_search(d->lines[a[i]], 1);
-        e2_word_simp=list_search(d->lines[a[i]], 2);
-        e3_word_part=list_search(d->lines[a[i]], 3);
+        e1_word_inf = list_search(d->lines[a[i]], 1);
+        e2_word_simp = list_search(d->lines[a[i]], 2);
+        e3_word_part = list_search(d->lines[a[i]], 3);
         fprintf(stdout, "Введите три формы неправильного глагола слова %s на английский язык:\n", r_word->key);
         fscanf(stdin, "%s %s %s", str, str1, str2);
         e1_word = list_lookup(d->lines[a[i]], str);
@@ -166,7 +167,7 @@ int thirdMode(Dictionary *d, int count) {
             score++;
         }
 
-        sprintf(temp, "%d) Слово: %-10s Вы ввели: %-10s правильный ответ: %-10s %-10s %-10s\n", i+1, r_word->key, str, e1_word->key, e2_word->key, e3_word->key);
+        sprintf(temp, "%d) Слово: %-10s Вы ввели: %-10s правильный ответ: %-10s %-10s %-10s\n", i + 1, r_word->key, str, e1_word->key, e2_word->key, e3_word->key);
         strcat(result, temp);
     }
     sprintf(temp, "Ваш счет %.0f слов из %d, %.0f%%\n\n", score, count, score / count * 100);

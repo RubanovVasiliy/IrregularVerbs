@@ -1,5 +1,5 @@
 #include "menu.h"
-#include "Dictionary.h"
+#include "dictionary.h"
 #include "menu_context.h"
 #include "modes.h"
 #include <ncurses.h>
