@@ -1,4 +1,5 @@
-#include "Dictionary.h"
+#include "dictionary.h"
+#include <ncurses.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -25,6 +26,32 @@ int printDictionary(Dictionary* d)
     for (int i = 0; i < d->count; i++) {
         listprint(d->lines[i]);
         printf("\n");
+    }
+    return 0;
+}
+
+int wlistprint(WINDOW* win, List* node)
+{
+    if (!node) {
+        return -1;
+    }
+
+    List* ptr = node;
+    do {
+        wprintw(win, "%2d %-10s", ptr->value, ptr->key);
+        ptr = ptr->next;
+    } while (ptr != NULL);
+    return 0;
+}
+
+int wprintDictionary(WINDOW* win, Dictionary* d)
+{
+    if (!d) {
+        return -1;
+    }
+    for (int i = 0; i < d->count; i++) {
+        wlistprint(win, d->lines[i]);
+        wprintw(win, "\n");
     }
     return 0;
 }

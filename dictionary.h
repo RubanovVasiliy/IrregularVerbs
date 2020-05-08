@@ -1,4 +1,5 @@
 #pragma once
+#include <ncurses.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -15,6 +16,8 @@ typedef struct Dictionary {
 
 int listprint(List* node);
 int printDictionary(Dictionary* d);
+int wlistprint(WINDOW* win, List* node);
+int wprintDictionary(WINDOW* win, Dictionary* d);
 int fillDictionary(Dictionary* d);
 List* list_createnode(char* key, int value);
 List* list_lookup(List* list, char* key);
