@@ -1,5 +1,7 @@
 results.log
 res
+!src
+!source
 
 # Prerequisites
 *.d
