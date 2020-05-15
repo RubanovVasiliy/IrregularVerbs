@@ -111,7 +111,7 @@ int fillDictionary(Dictionary* d)
     }
 
     FILE* file;
-    char name[] = "d.txt";
+    char name[] = "./source/d.txt";
     if ((file = fopen(name, "r")) == NULL) {
         printf("Не удалось открыть файл");
         return -1;
