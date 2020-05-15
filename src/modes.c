@@ -185,5 +185,11 @@ int thirdMode(Dictionary* d, int count)
     fprintf(file, "%s", result);
     fclose(file);
     free(a);
+    free(e1_word);
+    free(e2_word);
+    free(e3_word);
+    free(e1_word_inf);
+    free(e2_word_simp);
+    free(e3_word_part);
     return score;
 }
