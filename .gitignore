@@ -1,5 +1,8 @@
+v
 results.log
-res
+*.DS_Store
+
+
 !src
 !source
 
