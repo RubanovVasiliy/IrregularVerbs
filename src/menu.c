@@ -251,7 +251,7 @@ void testing(Dictionary* d, int mode, int level)
     wprintw(test, "\nTest\n");
     wrefresh(test);
     if (mode == 1) {
-        firstMode(test, d, level * 5);
+        first_mode(test, d, level * 5);
     } else if (mode == 2) {
 
     } else if (mode == 3) {
