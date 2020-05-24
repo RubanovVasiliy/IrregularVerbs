@@ -2,12 +2,7 @@ flags = -Wall -Werror
 
 all: bin build bin/v
 
-w: bin build bin/vw
-
 bin/v: build/main.o build/dictionary.o build/menu.o build/modes.o
-	gcc $(flags) build/main.o build/dictionary.o build/menu.o build/modes.o -o bin/v -lncurses
-
-bin/vw: build/main.o build/dictionary.o build/menu.o build/modes.o
 	gcc $(flags) build/main.o build/dictionary.o build/menu.o build/modes.o -o bin/vw -lncursesw
 
 build/main.o: src/main.c
