@@ -21,7 +21,7 @@ void generate_rand(int** a, unsigned n, unsigned range)
     assert(temp == n);
 }
 
-int firstMode(WINDOW* win, Dictionary* d, int count)
+int first_mode(WINDOW* win, Dictionary* d, int count)
 {
     echo();
     time_t t = time(NULL);
@@ -72,7 +72,7 @@ int firstMode(WINDOW* win, Dictionary* d, int count)
     return score;
 }
 
-int secondMode(Dictionary* d, int count)
+int second_mode(Dictionary* d, int count)
 {
 
     time_t t = time(NULL);
@@ -122,7 +122,7 @@ int secondMode(Dictionary* d, int count)
     return score;
 }
 
-int thirdMode(Dictionary* d, int count)
+int third_mode(Dictionary* d, int count)
 {
 
     time_t t = time(NULL);

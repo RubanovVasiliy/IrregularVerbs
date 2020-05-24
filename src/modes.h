@@ -5,6 +5,6 @@
 #include <stdlib.h>
 
 void generate_rand(int** a, unsigned n, unsigned range);
-int firstMode(WINDOW* win, Dictionary* d, int count);
-int secondMode(Dictionary* d, int count);
-int thirdMode(Dictionary* d, int count);
+int first_mode(WINDOW* win, Dictionary* d, int count);
+int second_mode(Dictionary* d, int count);
+int third_mode(Dictionary* d, int count);
