@@ -174,22 +174,33 @@ int thirdMode(Dictionary* d, int count)
         sprintf(temp, "%d) Слово: %-10s Вы ввели: %-10s правильный ответ: %-10s %-10s %-10s\n", i + 1, r_word->key, str, e1_word->key, e2_word->key, e3_word->key);
         strcat(result, temp);
     }
-    sprintf(temp, "Ваш счет %.0f слов из %d, %.0f%%\n\n", score, count, score / count * 100);
-    strcat(result, temp);
-
-    FILE* file;
-    if ((file = fopen("results.log", "a+")) == NULL) {
-        fprintf(stdout, "Не удалось открыть файл, результаты не будут записаны.");
-    }
-    fprintf(file, "%04d-%02d-%02d\n%02d:%02d:%02d\n", aTm->tm_year + 1900, aTm->tm_mon + 1, aTm->tm_mday, aTm->tm_hour, aTm->tm_min, aTm->tm_sec);
-    fprintf(file, "%s", result);
-    fclose(file);
-    free(a);
+    
+    free(str);
+    free(str1);
+    free(str2);
     free(e1_word);
     free(e2_word);
     free(e3_word);
     free(e1_word_inf);
     free(e2_word_simp);
     free(e3_word_part);
+    free(r_word);
+
+    sprintf(temp, "Ваш счет %.0f слов из %d, %.0f%%\n\n", score, count, score / count * 100);
+    strcat(result, temp);
+
+    FILE* file;
+
+    if ((file = fopen("results.log", "a+")) == NULL) {
+        fprintf(stdout, "Не удалось открыть файл, результаты не будут записаны.");
+    }
+
+    fprintf(file, "%04d-%02d-%02d\n%02d:%02d:%02d\n", aTm->tm_year + 1900, aTm->tm_mon + 1, aTm->tm_mday, aTm->tm_hour, aTm->tm_min, aTm->tm_sec);
+    fprintf(file, "%s", result);
+    fclose(file);
+    free(result);
+    free(temp);
+    free(a);
+    free(aTm);
     return score;
 }
