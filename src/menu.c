@@ -249,7 +249,7 @@ void testing(Dictionary* d, int mode, int level)
     if (mode == 1) {
         first_mode(test, d, level * 5);
     } else if (mode == 2) {
-
+    second_mode(test, d, level * 5);
     } else if (mode == 3) {
     }
 
