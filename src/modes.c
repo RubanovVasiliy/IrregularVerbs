@@ -123,12 +123,14 @@ int second_mode(WINDOW *win, Dictionary* d, int count)
     wprintw(win, "%s", result);
     fclose(file);
     free(a);
+    free(r_word);
+    free(node);
     return score;
 }
 
 int third_mode(WINDOW *win, Dictionary* d, int count)
 {
-
+    echo();
     time_t t = time(NULL);
     struct tm* aTm = localtime(&t);
 
@@ -136,75 +138,61 @@ int third_mode(WINDOW *win, Dictionary* d, int count)
     List* e2_word;
     List* e3_word;
 
-    List* e1_word_inf;
-    List* e2_word_simp;
-    List* e3_word_part;
-
     List* r_word;
-
     int* a = NULL;
     float score = 0;
-
-    char* result = malloc(sizeof(char) * 800);
-    char* temp = malloc(sizeof(char) * 100);
-    char* str = malloc(sizeof(char) * 10);
-    char* str1 = malloc(sizeof(char) * 10);
-    char* str2 = malloc(sizeof(char) * 10);
+    
+    char* result = malloc(sizeof(char) * 8000);
+    char* temp = malloc(sizeof(char) * 1000);
+    char* str = calloc(sizeof(char), 100);
+    char* str1 = calloc(sizeof(char), 100);
+    char* str2 = calloc(sizeof(char), 100);
 
     if (result == NULL || temp == NULL || str == NULL) {
         return -1;
     }
-
     result[0] = '\0';
 
-    sprintf(temp, "Третий режим, сложность %d слов.\n", count);
+    wprintw(win, "Третий режим, сложность %d слов.\n", count);
+    sprintf(temp, "%04d-%02d-%02d\n%02d:%02d:%02d\n", aTm->tm_year + 1900, aTm->tm_mon + 1, aTm->tm_mday, aTm->tm_hour, aTm->tm_min, aTm->tm_sec);
     strcat(result, temp);
     generate_rand(&a, count, d->count - 1);
-
     for (int i = 0; i < count; i++) {
+
         r_word = list_search(d->lines[a[i]], 0);
-        e1_word_inf = list_search(d->lines[a[i]], 1);
-        e2_word_simp = list_search(d->lines[a[i]], 2);
-        e3_word_part = list_search(d->lines[a[i]], 3);
-        fprintf(stdout, "Введите три формы неправильного глагола слова %s на английский язык:\n", r_word->key);
-        fscanf(stdin, "%s %s %s", str, str1, str2);
-        e1_word = list_lookup(d->lines[a[i]], str);
-        e2_word = list_lookup(d->lines[a[i]], str1);
-        e3_word = list_lookup(d->lines[a[i]], str2);
+        wprintw(win, "Введите три формы неправильного глагола слова %s на английский язык:\n", r_word->key);
+        wscanw(win, "%s %s %s", str, str1, str2);
+        e1_word=list_lookup(d->lines[a[i]], str);
+        e2_word=list_lookup(d->lines[a[i]], str1);
+        e3_word=list_lookup(d->lines[a[i]], str2);
+
         if ((e1_word != NULL) && (e2_word != NULL) && (e3_word != NULL)) {
             score++;
         }
 
-        sprintf(temp, "%d) Слово: %-10s Вы ввели: %-10s правильный ответ: %-10s %-10s %-10s\n", i + 1, r_word->key, str, e1_word->key, e2_word->key, e3_word->key);
+        e1_word=list_search(d->lines[a[i]], 1);
+        e2_word=list_search(d->lines[a[i]], 2);
+        e3_word=list_search(d->lines[a[i]], 3);
+
+        sprintf(temp, "%d) Слово: %-2s Вы ввели: %-2s %-2s %-2s правильный ответ: %-2s %-2s %-2s\n", i +1, r_word->key, str,str1, str2, e1_word->key, e2_word->key, e3_word->key);
         strcat(result, temp);
     }
-    
+    sprintf(temp, "Ваш счет %.0f слов из %d, %.0f%%\n\n", score, count, score / count * 100);
+    strcat(result, temp);
+    FILE* file;
+    if ((file = fopen("results.log", "a+")) == NULL) {
+         wprintw(win, "Не удалось открыть файл, результаты не будут записаны.");
+    }
+    fprintf(file, "%04d-%02d-%02d\n%02d:%02d:%02d\n", aTm->tm_year + 1900, aTm->tm_mon + 1, aTm->tm_mday, aTm->tm_hour, aTm->tm_min, aTm->tm_sec);
+    fprintf(file, "%s", result);
+    wprintw(win, "%s", result);
+    fclose(file);
     free(str);
     free(str1);
     free(str2);
+    free(a);
     free(e1_word);
     free(e2_word);
     free(e3_word);
-    free(e1_word_inf);
-    free(e2_word_simp);
-    free(e3_word_part);
-    free(r_word);
-
-    sprintf(temp, "Ваш счет %.0f слов из %d, %.0f%%\n\n", score, count, score / count * 100);
-    strcat(result, temp);
-
-    FILE* file;
-
-    if ((file = fopen("results.log", "a+")) == NULL) {
-        fprintf(stdout, "Не удалось открыть файл, результаты не будут записаны.");
-    }
-
-    fprintf(file, "%04d-%02d-%02d\n%02d:%02d:%02d\n", aTm->tm_year + 1900, aTm->tm_mon + 1, aTm->tm_mday, aTm->tm_hour, aTm->tm_min, aTm->tm_sec);
-    fprintf(file, "%s", result);
-    fclose(file);
-    free(result);
-    free(temp);
-    free(a);
-    free(aTm);
     return score;
 }
