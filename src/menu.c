@@ -242,15 +242,14 @@ void testing(Dictionary* d, int mode, int level)
     int starty = 0;
     test = newwin(LINES, COLS, starty, startx);
     keypad(test, TRUE);
-
     refresh();
-    wprintw(test, "\nTest\n");
     wrefresh(test);
     if (mode == 1) {
         first_mode(test, d, level * 5);
     } else if (mode == 2) {
     second_mode(test, d, level * 5);
     } else if (mode == 3) {
+        third_mode(test, d, level * 5);
     }
 
     while (1) {
