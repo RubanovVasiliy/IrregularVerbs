@@ -235,19 +235,15 @@ void instruction()
 void testing(Dictionary* d, int mode, int level)
 {
     int c;
-    int highlight = 0;
     WINDOW* test;
     clear();
     cbreak();
     int startx = 0;
     int starty = 0;
-    int n_testing = sizeof(testin) / sizeof(char*);
     test = newwin(LINES, COLS, starty, startx);
     keypad(test, TRUE);
 
     refresh();
-
-    print_menu(test, highlight, n_testing, testin);
     wprintw(test, "\nTest\n");
     wrefresh(test);
     if (mode == 1) {
