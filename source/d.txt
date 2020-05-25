@@ -23,7 +23,7 @@ keep kept kept держаться сохранять 22
 know knew known знать 23
 learn learnt learnt учить 24
 leave left left покидать 25
-make made made делать 26
+make made made сделать 26
 meet met met встречать 27
 put put put класть 28
 read read read читать 29
