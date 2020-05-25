@@ -4,7 +4,7 @@ break broke broken ломать 3
 bring brought brought приносить 4
 build built built строить 5
 choose chose chosen выбирать 6
-come came come 7
+come came come приходить 7
 cut cut cut резать 8
 do did done делать 9
 draw drew drawn рисовать 10
