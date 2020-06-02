@@ -8,6 +8,7 @@
 #include <string.h>
 #include <time.h>
 
+
 void generate_rand(int** a, unsigned n, unsigned range)
 {
     *a = malloc(sizeof(int) * n);
@@ -23,6 +24,7 @@ void generate_rand(int** a, unsigned n, unsigned range)
 
 int first_mode(WINDOW* win, Dictionary* d, int count)
 {
+    scrollok(win, TRUE);
     echo();
     time_t t = time(NULL);
     struct tm* aTm = localtime(&t);
@@ -31,9 +33,9 @@ int first_mode(WINDOW* win, Dictionary* d, int count)
     int* a = NULL;
     float score = 0;
 
-    char* result = calloc(sizeof(char), 800);
-    char* temp = calloc(sizeof(char), 100);
-    char* str = calloc(sizeof(char), 10);
+    char* result = calloc(sizeof(char), 1000);
+    char* temp = calloc(sizeof(char), 1000);
+    char* str = calloc(sizeof(char), 100);
 
     if (result == NULL || temp == NULL || str == NULL) {
         return -1;
@@ -69,12 +71,14 @@ int first_mode(WINDOW* win, Dictionary* d, int count)
     wprintw(win, "%s", result);
     fclose(file);
     free(a);
+    free(temp);
+    free(result);
     return score;
 }
 
 int second_mode(WINDOW *win, Dictionary* d, int count)
 {
-
+    scrollok(win, TRUE);
     echo();
     time_t t = time(NULL);
     struct tm* aTm = localtime(&t);
@@ -130,6 +134,7 @@ int second_mode(WINDOW *win, Dictionary* d, int count)
 
 int third_mode(WINDOW *win, Dictionary* d, int count)
 {
+    scrollok(win, TRUE);
     echo();
     time_t t = time(NULL);
     struct tm* aTm = localtime(&t);
