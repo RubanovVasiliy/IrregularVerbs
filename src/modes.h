@@ -6,5 +6,5 @@
 
 void generate_rand(int** a, unsigned n, unsigned range);
 int first_mode(WINDOW* win, Dictionary* d, int count);
-int second_mode(WINDOW *win, Dictionary* d, int count);
-int third_mode(WINDOW *win, Dictionary* d, int count);
+int second_mode(WINDOW* win, Dictionary* d, int count);
+int third_mode(WINDOW* win, Dictionary* d, int count);
