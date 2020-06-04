@@ -38,8 +38,8 @@ void main_menu()
     clear();
     noecho();
     cbreak();
-    int startx = (80 - WIDTH) / 2;
-    int starty = (24 - HEIGHT) / 2;
+    int startx = (COLS - WIDTH) / 2;
+    int starty = (LINES - HEIGHT) / 2;
     int n_menu = sizeof(menu) / sizeof(char*);
     menu_win = newwin(HEIGHT, WIDTH, starty, startx);
     keypad(menu_win, TRUE);
@@ -102,8 +102,8 @@ void mode_menu(Dictionary* d, int mode)
     clear();
     noecho();
     cbreak();
-    int startx = (80 - WIDTH) / 2;
-    int starty = (24 - HEIGHT) / 2;
+    int startx = (COLS - WIDTH) / 2;
+    int starty = (LINES - HEIGHT) / 2;
     int n_menu2 = sizeof(menu2) / sizeof(char*);
     menu_2 = newwin(HEIGHT, WIDTH, starty, startx);
     keypad(menu_2, TRUE);
@@ -160,8 +160,8 @@ void mode_menu_2(Dictionary* d, int mode)
     clear();
     noecho();
     cbreak();
-    int startx = (80 - WIDTH) / 2;
-    int starty = (24 - HEIGHT) / 2;
+    int startx = (COLS - WIDTH) / 2;
+    int starty = (LINES - HEIGHT) / 2;
     int n_menu3 = sizeof(menu3) / sizeof(char*);
     menu_3 = newwin(HEIGHT, WIDTH, starty, startx);
     keypad(menu_3, TRUE);
