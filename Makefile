@@ -1,18 +1,17 @@
 flags = -Wall -Werror
 debug_flags = -Wall -Werror -g -O0
 
-all: clean build
+all: clean src
 
-build: bin build/src build/src/main.o build/src/dictionary.o build/src/menu.o build/src/modes.o
-	gcc $(flags) build/src/*.o  -o bin/v -lncursesw
-
-debug: bin build/debug build/debug/main.o build/debug/dictionary.o build/debug/menu.o build/debug/modes.o
-	gcc $(debug_flags) build/debug/*.o  -o bin/d -lncursesw
-
-run: all
+run: clean test
+	./bin/t
 	./bin/v
 
+
 #src
+
+src: bin build/src build/src/main.o build/src/dictionary.o build/src/menu.o build/src/modes.o
+	gcc $(flags) build/src/*.o  -o bin/v -lncursesw
 
 build/src:
 	mkdir -p build/src
@@ -32,6 +31,9 @@ build/src/modes.o: src/modes.c
 
 #debug
 
+debug: bin build/debug build/debug/main.o build/debug/dictionary.o build/debug/menu.o build/debug/modes.o
+	gcc $(debug_flags) build/debug/*.o  -o bin/d -lncursesw
+
 build/debug:
 	mkdir -p build/debug
 
@@ -50,9 +52,17 @@ build/debug/modes.o: src/modes.c
 
 #test
 
+test: src build/test build/test/main.o build/test/dictionary.o 
+	gcc $(flags)  build/test/*.o build/src/dictionary.o -o bin/t -lncursesw
+
 build/test:
 	mkdir -p build/test
 
+build/test/main.o: test/main.c
+	gcc $(flags) -c test/main.c -o build/test/main.o
+
+build/test/dictionary.o: test/dictionary.c
+	gcc $(flags) -c test/dictionary.c -o build/test/dictionary.o
 
 
 
