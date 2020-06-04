@@ -8,6 +8,11 @@
 #include <string.h>
 #include <time.h>
 
+#define STRLEN_(x) #x
+#define STRLEN(x) STRLEN_(x)
+
+#define LEN 20
+
 void generate_rand(int** a, unsigned n, unsigned range)
 {
     *a = malloc(sizeof(int) * n);
@@ -23,40 +28,48 @@ void generate_rand(int** a, unsigned n, unsigned range)
 
 int first_mode(WINDOW* win, Dictionary* d, int count)
 {
+    scrollok(win, TRUE);
     echo();
-    time_t t = time(NULL);
-    struct tm* aTm = localtime(&t);
 
-    List* node;
-    int* a = NULL;
-    float score = 0;
-
-    char* result = calloc(sizeof(char), 800);
-    char* temp = calloc(sizeof(char), 100);
-    char* str = calloc(sizeof(char), 10);
+    char* result = calloc(sizeof(char), 450 + 110 * count);
+    char* temp = calloc(sizeof(char), 110);
+    char* str = calloc(sizeof(char), 21);
 
     if (result == NULL || temp == NULL || str == NULL) {
         return -1;
     }
 
+    time_t t = time(NULL);
+    struct tm* aTm = localtime(&t);
+
     result[0] = '\0';
 
-    wprintw(win, "Первый режим, сложность %d слов.\n", count);
-    sprintf(temp, "%04d-%02d-%02d\n%02d:%02d:%02d\n", aTm->tm_year + 1900, aTm->tm_mon + 1, aTm->tm_mday, aTm->tm_hour, aTm->tm_min, aTm->tm_sec);
+    sprintf(temp, "Первый режим, сложность %d слов.\n", count);
+    wprintw(win, temp);
     strcat(result, temp);
+    sprintf(temp, "%04d-%02d-%02d\n%02d:%02d:%02d\n",
+        aTm->tm_year + 1900, aTm->tm_mon + 1, aTm->tm_mday, aTm->tm_hour, aTm->tm_min, aTm->tm_sec);
+    strcat(result, temp);
+    int* a = NULL;
     generate_rand(&a, count, d->count - 1);
+
+    List* node;
+    float score = 0;
 
     for (int i = 0; i < count; i++) {
         wprintw(win, "Введите перевод слова %s на русский язык:\n", d->lines[a[i]]->key);
-        wscanw(win, "%s", str);
+        wscanw(win, "%" STRLEN(LEN) "s", str);
         node = list_lookup(d->lines[a[i]], str);
         if (node != NULL) {
             score++;
         }
         node = list_search(d->lines[a[i]], 0);
-        sprintf(temp, "%d) Слово: %-10s Вы ввели: %-10s правильный ответ: %-10s\n", i + 1, d->lines[a[i]]->key, str, node->key);
+        sprintf(temp, "%d) Слово: %-10s Вы ввели: %-10s правильный ответ: %-10s\n",
+            i + 1, d->lines[a[i]]->key, str, node->key);
         strcat(result, temp);
     }
+    
+    wprintw(win, "\n");
     sprintf(temp, "Ваш счет %.0f слов из %d, %.0f%%\n\n", score, count, score / count * 100);
     strcat(result, temp);
 
@@ -68,13 +81,18 @@ int first_mode(WINDOW* win, Dictionary* d, int count)
     fprintf(file, "%s", result);
     wprintw(win, "%s", result);
     fclose(file);
+
+    free(temp);
     free(a);
+    free(str);
+    free(result);
+    free(node);
     return score;
 }
 
-int second_mode(WINDOW *win, Dictionary* d, int count)
+int second_mode(WINDOW* win, Dictionary* d, int count)
 {
-
+    scrollok(win, TRUE);
     echo();
     time_t t = time(NULL);
     struct tm* aTm = localtime(&t);
@@ -84,9 +102,9 @@ int second_mode(WINDOW *win, Dictionary* d, int count)
     int* a = NULL;
     float score = 0;
 
-    char* result = calloc(sizeof(char), 800);
-    char* temp = calloc(sizeof(char), 100);
-    char* str = calloc(sizeof(char), 10);
+    char* result = calloc(sizeof(char), 450 + 110 * count);
+    char* temp = calloc(sizeof(char), 110);
+    char* str = calloc(sizeof(char), 21);
 
     if (result == NULL || temp == NULL || str == NULL) {
         return -1;
@@ -94,15 +112,18 @@ int second_mode(WINDOW *win, Dictionary* d, int count)
 
     result[0] = '\0';
 
-    wprintw(win, "Второй режим, сложность %d слов.\n", count);
-    sprintf(temp, "%04d-%02d-%02d\n%02d:%02d:%02d\n", aTm->tm_year + 1900, aTm->tm_mon + 1, aTm->tm_mday, aTm->tm_hour, aTm->tm_min, aTm->tm_sec);
+    sprintf(temp, "Второй режим, сложность %d слов.\n", count);
+    wprintw(win, temp);
+    strcat(result, temp);
+    sprintf(temp, "%04d-%02d-%02d\n%02d:%02d:%02d\n",
+        aTm->tm_year + 1900, aTm->tm_mon + 1, aTm->tm_mday, aTm->tm_hour, aTm->tm_min, aTm->tm_sec);
     strcat(result, temp);
     generate_rand(&a, count, d->count - 1);
 
     for (int i = 0; i < count; i++) {
-        r_word=list_search(d->lines[a[i]], 0);
+        r_word = list_search(d->lines[a[i]], 0);
         wprintw(win, "Введите перевод слова %s на английский язык:\n", r_word->key);
-        wscanw(win, "%s", str);
+        wscanw(win, "%" STRLEN(LEN) "s", str);
         node = list_lookup(d->lines[a[i]], str);
         if (node != NULL) {
             score++;
@@ -111,6 +132,8 @@ int second_mode(WINDOW *win, Dictionary* d, int count)
         sprintf(temp, "%d) Слово: %-10s Вы ввели: %-10s правильный ответ: %-10s\n", i + 1, d->lines[a[i]]->key, str, node->key);
         strcat(result, temp);
     }
+    
+    wprintw(win, "\n");
     sprintf(temp, "Ваш счет %.0f слов из %d, %.0f%%\n\n", score, count, score / count * 100);
     strcat(result, temp);
 
@@ -125,11 +148,15 @@ int second_mode(WINDOW *win, Dictionary* d, int count)
     free(a);
     free(r_word);
     free(node);
+    free(str);
+    free(temp);
+    free(result);
     return score;
 }
 
-int third_mode(WINDOW *win, Dictionary* d, int count)
+int third_mode(WINDOW* win, Dictionary* d, int count)
 {
+    scrollok(win, TRUE);
     echo();
     time_t t = time(NULL);
     struct tm* aTm = localtime(&t);
@@ -141,7 +168,7 @@ int third_mode(WINDOW *win, Dictionary* d, int count)
     List* r_word;
     int* a = NULL;
     float score = 0;
-    
+
     char* result = malloc(sizeof(char) * 8000);
     char* temp = malloc(sizeof(char) * 1000);
     char* str = calloc(sizeof(char), 100);
@@ -162,26 +189,26 @@ int third_mode(WINDOW *win, Dictionary* d, int count)
         r_word = list_search(d->lines[a[i]], 0);
         wprintw(win, "Введите три формы неправильного глагола слова %s на английский язык:\n", r_word->key);
         wscanw(win, "%s %s %s", str, str1, str2);
-        e1_word=list_lookup(d->lines[a[i]], str);
-        e2_word=list_lookup(d->lines[a[i]], str1);
-        e3_word=list_lookup(d->lines[a[i]], str2);
+        e1_word = list_lookup(d->lines[a[i]], str);
+        e2_word = list_lookup(d->lines[a[i]], str1);
+        e3_word = list_lookup(d->lines[a[i]], str2);
 
         if ((e1_word != NULL) && (e2_word != NULL) && (e3_word != NULL)) {
             score++;
         }
 
-        e1_word=list_search(d->lines[a[i]], 1);
-        e2_word=list_search(d->lines[a[i]], 2);
-        e3_word=list_search(d->lines[a[i]], 3);
+        e1_word = list_search(d->lines[a[i]], 1);
+        e2_word = list_search(d->lines[a[i]], 2);
+        e3_word = list_search(d->lines[a[i]], 3);
 
-        sprintf(temp, "%d) Слово: %-2s Вы ввели: %-2s %-2s %-2s правильный ответ: %-2s %-2s %-2s\n", i +1, r_word->key, str,str1, str2, e1_word->key, e2_word->key, e3_word->key);
+        sprintf(temp, "%d) Слово: %-2s Вы ввели: %-2s %-2s %-2s правильный ответ: %-2s %-2s %-2s\n", i + 1, r_word->key, str, str1, str2, e1_word->key, e2_word->key, e3_word->key);
         strcat(result, temp);
     }
     sprintf(temp, "Ваш счет %.0f слов из %d, %.0f%%\n\n", score, count, score / count * 100);
     strcat(result, temp);
     FILE* file;
     if ((file = fopen("results.log", "a+")) == NULL) {
-         wprintw(win, "Не удалось открыть файл, результаты не будут записаны.");
+        wprintw(win, "Не удалось открыть файл, результаты не будут записаны.");
     }
     fprintf(file, "%04d-%02d-%02d\n%02d:%02d:%02d\n", aTm->tm_year + 1900, aTm->tm_mon + 1, aTm->tm_mday, aTm->tm_hour, aTm->tm_min, aTm->tm_sec);
     fprintf(file, "%s", result);
