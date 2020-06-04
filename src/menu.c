@@ -256,16 +256,18 @@ void testing(Dictionary* d, int mode, int level)
         third_mode(test, d, level * 5);
     }
 
-    while (1) {
+     while (1) {
         c = wgetch(test);
         switch (c) {
         case 10:
             break;
         }
         refresh();
-        if (c != 0)
+        if (c == KEY_F(2))
             break;
-        clrtoeol();
+        else {
+            wprintw(test, "\nНажмите клавишу F2 для выхода\n");
+        }
     }
     clrtoeol();
     refresh();
