@@ -19,7 +19,7 @@ const char* menu3[] = {
 };
 
 const char* instruct[] = {
-	"There will be instructions for working",
+    "There will be instructions for working",
   "with the program and other other other other",
   "Press any key to exit",
 };
