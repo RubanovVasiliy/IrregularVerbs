@@ -59,7 +59,7 @@ int wprintDictionary(WINDOW* win, Dictionary* d)
 List* list_createnode(char* key, int value)
 {
     List* p;
-    p = malloc(sizeof(*p));
+    p = calloc(sizeof(*p), 1);
     if (p != NULL) {
         p->key = key;
         p->value = value;
@@ -113,7 +113,7 @@ int fillDictionary(Dictionary* d)
     FILE* file;
     char name[] = "./source/d.txt";
     if ((file = fopen(name, "r")) == NULL) {
-        printf("Не удалось открыть файл");
+        printf("Не удалось открыть файл\n");
         return -1;
     }
 
@@ -125,7 +125,7 @@ int fillDictionary(Dictionary* d)
         return -1;
     }
 
-    char* str = malloc(sizeof(char) * 100);
+    char* str = calloc(sizeof(char), 100);
     if (str == NULL) {
         return -1;
     }
@@ -154,5 +154,5 @@ int fillDictionary(Dictionary* d)
     free(str);
     free(word);
     free(pch);
-    return 0;
+    return d->count;
 }

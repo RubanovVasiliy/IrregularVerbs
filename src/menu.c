@@ -25,8 +25,11 @@ void print_menu(WINDOW* menu_win, int highlight, int n_menu, const char** choice
 
 void main_menu()
 {
-    Dictionary* d = malloc(sizeof(Dictionary));
-    fillDictionary(d);
+    Dictionary* d = calloc(sizeof(Dictionary), 1);
+    if (fillDictionary(d) == -1) {
+        free(d);
+        return;
+    }
     WINDOW* menu_win;
     int highlight = 1;
     int choice = 0;
@@ -86,6 +89,7 @@ void main_menu()
     clrtoeol();
     refresh();
     endwin();
+    free(d);
 }
 
 void mode_menu(Dictionary* d, int mode)
