@@ -5,7 +5,8 @@
 #include <ncurses.h>
 #include <stdio.h>
 
-void print_menu(WINDOW* menu_win, int highlight, int n_menu, const char** choices)
+void print_menu(
+        WINDOW* menu_win, int highlight, int n_menu, const char** choices)
 {
     int x, y, i;
     x = 2;
@@ -133,7 +134,13 @@ void mode_menu(Dictionary* d, int mode)
 
             break;
         default:
-            mvprintw(24, 0, "Hopefully it can be printed as '%c'. Select the field you need and press ENTER", c);
+            mvprintw(
+                    24,
+                    0,
+                    "Hopefully it can be printed as '%c'. Select the field you "
+                    "need "
+                    "and press ENTER",
+                    c);
             refresh();
         }
         print_menu(menu_2, highlight, n_menu2, menu2);
@@ -192,7 +199,13 @@ void mode_menu_2(Dictionary* d, int mode)
             }
             break;
         default:
-            mvprintw(24, 0, "Hopefully it can be printed as '%c'. Select the field you need and press ENTER", c);
+            mvprintw(
+                    24,
+                    0,
+                    "Hopefully it can be printed as '%c'. Select the field you "
+                    "need "
+                    "and press ENTER",
+                    c);
             refresh();
         }
         print_menu(menu_3, highlight, n_menu3, menu3);
@@ -251,12 +264,12 @@ void testing(Dictionary* d, int mode, int level)
     if (mode == 1) {
         first_mode(test, d, level * 5);
     } else if (mode == 2) {
-    second_mode(test, d, level * 5);
+        second_mode(test, d, level * 5);
     } else if (mode == 3) {
         third_mode(test, d, level * 5);
     }
 
-     while (1) {
+    while (1) {
         c = wgetch(test);
         switch (c) {
         case 10:
