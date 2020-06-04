@@ -61,13 +61,15 @@ int first_mode(WINDOW* win, Dictionary* d, int count)
     for (int i = 0; i < count; i++) {
 
         wprintw(win, "Введите перевод слова %s на русский язык:\n", d->lines[a[i]]->key);
-        wscanw(win, "%" STRLEN(LEN) "s", str);
+        if (wscanw(win, "%" STRLEN(LEN) "s", str) == -1) {
+          str[0]='\0';
+        }
         node = list_lookup(d->lines[a[i]], str);
         if (node != NULL) {
             score++;
         }
         node = list_search(d->lines[a[i]], 0);
-        sprintf(temp, "%d) Слово: %-10s Вы ввели: %-10s правильный ответ: %-10s\n",
+        sprintf(temp, "%2d) Слово: %-10s Вы ввели: %-10s правильный ответ: %-10s\n",
             i + 1, d->lines[a[i]]->key, str, node->key);
         strcat(result, temp);
     }
@@ -81,8 +83,10 @@ int first_mode(WINDOW* win, Dictionary* d, int count)
         wprintw(win, "Не удалось открыть файл, результаты не будут записаны.");
     }
 
+    wclear(win);
     fprintf(file, "%s", result);
-    wprintw(win, "%s", result);
+    wprintw(win, "%s\n\n", result);
+    wprintw(win,"Нажмине F2 для выхода.\n");
     fclose(file);
 
     free(a);
