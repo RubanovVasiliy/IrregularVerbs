@@ -15,7 +15,7 @@
 
 void generate_rand(int** a, unsigned n, unsigned range)
 {
-    *a = malloc(sizeof(int) * n);
+    *a = calloc(sizeof(int), n);
     unsigned temp = 0;
 
     for (unsigned i = 0; i < range; ++i) {
@@ -85,11 +85,10 @@ int first_mode(WINDOW* win, Dictionary* d, int count)
     wprintw(win, "%s", result);
     fclose(file);
 
-    free(temp);
     free(a);
     free(str);
+    free(temp);
     free(result);
-    free(node);
     return score;
 }
 
@@ -153,8 +152,6 @@ int second_mode(WINDOW* win, Dictionary* d, int count)
     fclose(file);
 
     free(a);
-    free(r_word);
-    free(node);
     free(str);
     free(temp);
     free(result);
@@ -202,7 +199,10 @@ int third_mode(WINDOW* win, Dictionary* d, int count)
 
         r_word = list_search(d->lines[a[i]], 0);
         wprintw(win, "Введите три формы неправильного глагола слова %s на английский язык:\n", r_word->key);
-        wscanw(win, "%" STRLEN(LEN) "s"  "%" STRLEN(LEN) "s"  "%" STRLEN(LEN) "s", str1, str2, str3);
+        wscanw(win, "%" STRLEN(LEN) "s"
+                                    "%" STRLEN(LEN) "s"
+                                                    "%" STRLEN(LEN) "s",
+            str1, str2, str3);
         e1_word = list_lookup(d->lines[a[i]], str1);
         e2_word = list_lookup(d->lines[a[i]], str2);
         e3_word = list_lookup(d->lines[a[i]], str3);
@@ -232,12 +232,11 @@ int third_mode(WINDOW* win, Dictionary* d, int count)
     wprintw(win, "%s", result);
     fclose(file);
 
+    free(a);
+    free(temp);
     free(str1);
     free(str2);
     free(str3);
-    free(a);
-    free(e1_word);
-    free(e2_word);
-    free(e3_word);
+    free(result);
     return score;
 }
