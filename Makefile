@@ -6,6 +6,9 @@ all: clean src
 run: clean test
 	./bin/t
 
+show:
+	cat results.log
+
 
 #src
 
