@@ -62,7 +62,7 @@ int first_mode(WINDOW* win, Dictionary* d, int count)
 
         wprintw(win, "Введите перевод слова %s на русский язык:\n", d->lines[a[i]]->key);
         if (wscanw(win, "%" STRLEN(LEN) "s", str) == -1) {
-          str[0]='\0';
+            str[0] = '\0';
         }
         node = list_lookup(d->lines[a[i]], str);
         if (node != NULL) {
@@ -86,7 +86,7 @@ int first_mode(WINDOW* win, Dictionary* d, int count)
     wclear(win);
     fprintf(file, "%s", result);
     wprintw(win, "%s\n\n", result);
-    wprintw(win,"Нажмине F2 для выхода.\n");
+    wprintw(win, "Нажмине F2 для выхода.\n");
     fclose(file);
 
     free(a);
@@ -133,7 +133,7 @@ int second_mode(WINDOW* win, Dictionary* d, int count)
         r_word = list_search(d->lines[a[i]], 0);
         wprintw(win, "Введите перевод слова %s на английский язык:\n", r_word->key);
         if (wscanw(win, "%" STRLEN(LEN) "s", str) == -1) {
-          str[0]='\0';
+            str[0] = '\0';
         }
         node = list_lookup(d->lines[a[i]], str);
         if (node != NULL) {
@@ -156,7 +156,7 @@ int second_mode(WINDOW* win, Dictionary* d, int count)
     wclear(win);
     fprintf(file, "%s", result);
     wprintw(win, "%s\n\n", result);
-    wprintw(win,"Нажмине F2 для выхода.\n");
+    wprintw(win, "Нажмине F2 для выхода.\n");
     fclose(file);
 
     free(a);
@@ -207,10 +207,25 @@ int third_mode(WINDOW* win, Dictionary* d, int count)
 
         r_word = list_search(d->lines[a[i]], 0);
         wprintw(win, "Введите три формы неправильного глагола слова %s на английский язык:\n", r_word->key);
-        wscanw(win, "%" STRLEN(LEN) "s"
-                                    "%" STRLEN(LEN) "s"
-                                                    "%" STRLEN(LEN) "s",
-            str1, str2, str3);
+
+
+        switch (wscanw(win, "%" STRLEN(LEN) "s" "%" STRLEN(LEN) "s" "%" STRLEN(LEN) "s", str1, str2, str3)) {
+        case -1:
+            str1[0] = '\0';
+            str2[0] = '\0';
+            str3[0] = '\0';
+            break;
+
+        case 1:
+            str2[0] = '\0';
+            str3[0] = '\0';
+            break;
+        case 2:
+
+            str3[0] = '\0';
+            break;
+        }
+
         e1_word = list_lookup(d->lines[a[i]], str1);
         e2_word = list_lookup(d->lines[a[i]], str2);
         e3_word = list_lookup(d->lines[a[i]], str3);
@@ -222,7 +237,8 @@ int third_mode(WINDOW* win, Dictionary* d, int count)
         e2_word = list_search(d->lines[a[i]], 2);
         e3_word = list_search(d->lines[a[i]], 3);
 
-        sprintf(temp, "%d) Слово: %-2s Вы ввели: %-2s %-2s %-2s правильный ответ: %-2s %-2s %-2s\n", i + 1, r_word->key, str1, str2, str3, e1_word->key, e2_word->key, e3_word->key);
+        sprintf(temp, "%d) Слово: %-2s Вы ввели: %-2s %-2s %-2s правильный ответ: %-2s %-2s %-2s\n", 
+          i + 1, r_word->key, str1, str2, str3, e1_word->key, e2_word->key, e3_word->key);
         strcat(result, temp);
     }
 
@@ -235,9 +251,10 @@ int third_mode(WINDOW* win, Dictionary* d, int count)
         wprintw(win, "Не удалось открыть файл, результаты не будут записаны.");
     }
 
-    fprintf(file, "%04d-%02d-%02d\n%02d:%02d:%02d\n", aTm->tm_year + 1900, aTm->tm_mon + 1, aTm->tm_mday, aTm->tm_hour, aTm->tm_min, aTm->tm_sec);
+    wclear(win);
     fprintf(file, "%s", result);
-    wprintw(win, "%s", result);
+    wprintw(win, "%s\n\n", result);
+    wprintw(win,"Нажмине F2 для выхода.\n");
     fclose(file);
 
     free(a);
