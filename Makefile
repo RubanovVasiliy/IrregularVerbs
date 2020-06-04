@@ -5,7 +5,6 @@ all: clean src
 
 run: clean test
 	./bin/t
-	./bin/v
 
 
 #src
