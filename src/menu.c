@@ -26,7 +26,7 @@ void print_menu(
 
 void main_menu()
 {
-    Dictionary* d = calloc(sizeof(Dictionary), 1);
+    dictionary* d = calloc(sizeof(dictionary), 1);
     int code = fillDictionary(d);
     if (code == -1) {
         free(d);
@@ -100,7 +100,7 @@ void main_menu()
     free(d);
 }
 
-void modes_test(Dictionary* d, int mode)
+void modes_test(dictionary* d, int mode)
 {
     WINDOW* modes_test;
     int highlight = 1;
@@ -160,7 +160,7 @@ void destroy_win(WINDOW* local_win)
     delwin(local_win);
 }
 
-void difficulty_test(Dictionary* d, int mode)
+void difficulty_test(dictionary* d, int mode)
 {
     WINDOW* diff_test;
     int highlight = 1;
@@ -246,7 +246,7 @@ void instruction()
     destroy_win(inst);
 }
 
-void testing(Dictionary* d, int mode, int level)
+void testing(dictionary* d, int mode, int level)
 {
     int c;
     WINDOW* test;

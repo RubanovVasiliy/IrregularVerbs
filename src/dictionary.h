@@ -12,13 +12,13 @@ typedef struct List {
 typedef struct Dictionary {
     List* lines[45];
     int count;
-} Dictionary;
+} dictionary;
 
 int listprint(List* node);
-int printDictionary(Dictionary* d);
+int printDictionary(dictionary* d);
 int wlistprint(WINDOW* win, List* node);
-int wprintDictionary(WINDOW* win, Dictionary* d);
-int fillDictionary(Dictionary* d);
+int wprintDictionary(WINDOW* win, dictionary* d);
+int fillDictionary(dictionary* d);
 List* list_createnode(char* key, int value);
 List* list_lookup(List* list, char* key);
 List* list_search(List* node, int value);

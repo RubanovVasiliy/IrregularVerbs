@@ -18,7 +18,7 @@ int listprint(List* node)
     return 0;
 }
 
-int printDictionary(Dictionary* d)
+int printDictionary(dictionary* d)
 {
     if (!d) {
         return -1;
@@ -44,7 +44,7 @@ int wlistprint(WINDOW* win, List* node)
     return 0;
 }
 
-int wprintDictionary(WINDOW* win, Dictionary* d)
+int wprintDictionary(WINDOW* win, dictionary* d)
 {
     if (!d) {
         return -1;
@@ -104,7 +104,7 @@ List* list_addend(List* node, char* key, int value)
     return node;
 }
 
-int fillDictionary(Dictionary* d)
+int fillDictionary(dictionary* d)
 {
     if (d == NULL) {
         return -1;

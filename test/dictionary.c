@@ -8,7 +8,7 @@
 CTEST(dictionary, fillDictionary)
 {
     // Given
-    Dictionary* d = calloc(sizeof(Dictionary), 1);
+    dictionary* d = calloc(sizeof(dictionary), 1);
 
     // When
     int real = fillDictionary(d);
@@ -23,7 +23,7 @@ CTEST(dictionary, fillDictionary)
 CTEST(dictionary, printDictionary)
 {
     // Given
-    Dictionary* d = calloc(sizeof(Dictionary), 1);
+    dictionary* d = calloc(sizeof(dictionary), 1);
 
     // When
     int real = fillDictionary(d);
@@ -113,7 +113,7 @@ CTEST(dictionary, list_search_bad)
 CTEST(dictionary, fillDictionary_bad_1)
 {
     // Given
-    Dictionary* d = calloc(sizeof(Dictionary), 1);
+    dictionary* d = calloc(sizeof(dictionary), 1);
 
     // When
     int real = fillDictionary(d);
