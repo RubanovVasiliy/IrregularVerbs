@@ -5,7 +5,7 @@ const char* start_menu[] = {
 };
 
 const char* menu_diff_test[] = {
-        "* Простой ",
+        "* Легкий",
         "* Средний",
         "* Сложный",
         "Назад",
