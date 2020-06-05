@@ -101,7 +101,7 @@ int first_mode(WINDOW* win, Dictionary* d, int count)
     wclear(win);
     fprintf(file, "%s", result);
     wprintw(win, "%s\n\n", result);
-    wprintw(win, "Нажмине F2 для выхода.\n");
+    wprintw(win, "Нажмине F1 для выхода.\n");
     fclose(file);
 
     free(a);
@@ -187,7 +187,7 @@ int second_mode(WINDOW* win, Dictionary* d, int count)
     wclear(win);
     fprintf(file, "%s", result);
     wprintw(win, "%s\n\n", result);
-    wprintw(win, "Нажмине F2 для выхода.\n");
+    wprintw(win, "Нажмине F1 для выхода.\n");
     fclose(file);
 
     free(a);
@@ -315,7 +315,7 @@ int third_mode(WINDOW* win, Dictionary* d, int count)
     wclear(win);
     fprintf(file, "%s", result);
     wprintw(win, "%s\n\n", result);
-    wprintw(win, "Нажмине F2 для выхода.\n");
+    wprintw(win, "Нажмине F1 для выхода.\n");
     fclose(file);
 
     free(a);
