@@ -1,12 +1,15 @@
 flags = -Wall -Werror
 debug_flags = -Wall -Werror -g -O0
 
-all: clean src
+all: clean src test debug
 
-run: clean test
+run: clean src
+	./bin/v
+
+test_run: clean test
 	./bin/t
 
-show:
+resulst:
 	cat results.log
 
 
