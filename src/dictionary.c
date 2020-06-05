@@ -21,10 +21,13 @@ int list_print(List* node)
     }
 
     List* ptr = node;
-    do {
+
+    for (; ptr != NULL; ) {
         printf("%2d %-10s", ptr->value, ptr->key);
         ptr = ptr->next;
-    } while (ptr != NULL);
+    } 
+    free(ptr);
+
     return 0;
 }
 
@@ -173,30 +176,28 @@ int fill_dictionary(Dictionary* d)
     if (str == NULL) {
         return -1;
     }
-    char* pch;
-    char* word;
+
     d->count = 0;
 
     for (int i = 0; fgets(str, 100, file); i++) {
         d->count++;
 
-        pch = strtok(str, " \n");
+        char* pch = strtok(str, " \n");
 
         for (int j = 1; j < 4 && pch != NULL; j++) {
-            word = strdup(pch);
+            char* word = strdup(pch);
             d->lines[i] = list_addend(d->lines[i], word, j);
             pch = strtok(NULL, " \n");
+            printf("%ld %p %s\n",strlen(pch),&word,word);
         }
 
         while (pch != NULL) {
-            word = strdup(pch);
+            char* word = strdup(pch);
             d->lines[i] = list_addend(d->lines[i], word, 0);
             pch = strtok(NULL, " \n");
         }
     }
     fclose(file);
     free(str);
-    free(word);
-    free(pch);
     return d->count;
 }
