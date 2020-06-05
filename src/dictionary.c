@@ -6,7 +6,7 @@
 
 int list_free(List* head)
 {
-    int count=0;
+    int count = 0;
     while (head) {
         head = list_delete(head);
         count++;
@@ -22,10 +22,10 @@ int list_print(List* node)
 
     List* ptr = node;
 
-    for (; ptr != NULL; ) {
+    for (; ptr != NULL;) {
         printf("%2d %-10s", ptr->value, ptr->key);
         ptr = ptr->next;
-    } 
+    }
     free(ptr);
 
     return 0;
@@ -124,7 +124,7 @@ int dictionary_fill(Dictionary* d)
             char* word = strdup(pch);
             d->lines[i] = list_addend(d->lines[i], word, j);
             pch = strtok(NULL, " \n");
-            printf("%ld %p %s\n",strlen(pch),&word,word);
+            printf("%ld %p %s\n", strlen(pch), &word, word);
         }
 
         while (pch != NULL) {
