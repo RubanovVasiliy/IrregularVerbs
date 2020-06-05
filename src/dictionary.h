@@ -14,15 +14,15 @@ typedef struct Dictionary {
     int count;
 } Dictionary;
 
-int free_list(List* head);
+int list_free(List* head);
 int list_print(List* node);
-int print_dictionary(Dictionary* d);
-int wlist_print(WINDOW* win, List* node);
-int wprint_dictionary(WINDOW* win, Dictionary* d);
-List* list_delete(List* list);
-int delete_dictionary(Dictionary* d);
-int fill_dictionary(Dictionary* d);
+int list_wprint(WINDOW* win, List* node);
+int dictionary_print(Dictionary* d);
+int dictionary_wprint(WINDOW* win, Dictionary* d);
+int dictionary_delete(Dictionary* d);
+int dictionary_fill(Dictionary* d);
 List* list_createnode(char* key, int value);
 List* list_lookup(List* list, char* key);
 List* list_search(List* node, int value);
 List* list_addend(List* node, char* key, int value);
+List* list_delete(List* list);

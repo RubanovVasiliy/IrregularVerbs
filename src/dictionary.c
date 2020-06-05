@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-int free_list(List* head)
+int list_free(List* head)
 {
     int count=0;
     while (head) {
@@ -31,19 +31,7 @@ int list_print(List* node)
     return 0;
 }
 
-int print_dictionary(Dictionary* d)
-{
-    if (!d) {
-        return -1;
-    }
-    for (int i = 0; i < d->count; i++) {
-        list_print(d->lines[i]);
-        printf("\n");
-    }
-    return 0;
-}
-
-int wlist_print(WINDOW* win, List* node)
+int list_wprint(WINDOW* win, List* node)
 {
     if (!node) {
         return -1;
@@ -57,16 +45,97 @@ int wlist_print(WINDOW* win, List* node)
     return 0;
 }
 
-int wprint_dictionary(WINDOW* win, Dictionary* d)
+int dictionary_print(Dictionary* d)
 {
     if (!d) {
         return -1;
     }
     for (int i = 0; i < d->count; i++) {
-        wlist_print(win, d->lines[i]);
+        list_print(d->lines[i]);
+        printf("\n");
+    }
+    return 0;
+}
+
+int dictionary_wprint(WINDOW* win, Dictionary* d)
+{
+    if (!d) {
+        return -1;
+    }
+    for (int i = 0; i < d->count; i++) {
+        list_wprint(win, d->lines[i]);
         wprintw(win, "\n");
     }
     return 0;
+}
+
+int dictionary_delete(Dictionary* d)
+{
+    if (d == NULL) {
+        return -1;
+    }
+    int count = 0;
+
+    for (int i = d->count; i >= 0; --i) {
+        list_free(d->lines[i]);
+
+        if (!d->lines[i]) {
+            count++;
+        }
+    }
+    free(d);
+    return count;
+}
+
+int dictionary_fill(Dictionary* d)
+{
+    if (d == NULL) {
+        return -1;
+    }
+
+    FILE* file;
+    char name[] = "./source/d.txt";
+    if ((file = fopen(name, "r")) == NULL) {
+        printf("Не удалось открыть файл\n");
+        return -1;
+    }
+
+    fseek(file, 0, SEEK_END);
+    long pos = ftell(file);
+    if (pos > 0) {
+        rewind(file);
+    } else {
+        return -1;
+    }
+
+    char* str = calloc(sizeof(char), 100);
+    if (str == NULL) {
+        return -1;
+    }
+
+    d->count = 0;
+
+    for (int i = 0; fgets(str, 100, file); i++) {
+        d->count++;
+
+        char* pch = strtok(str, " \n");
+
+        for (int j = 1; j < 4 && pch != NULL; j++) {
+            char* word = strdup(pch);
+            d->lines[i] = list_addend(d->lines[i], word, j);
+            pch = strtok(NULL, " \n");
+            printf("%ld %p %s\n",strlen(pch),&word,word);
+        }
+
+        while (pch != NULL) {
+            char* word = strdup(pch);
+            d->lines[i] = list_addend(d->lines[i], word, 0);
+            pch = strtok(NULL, " \n");
+        }
+    }
+    fclose(file);
+    free(str);
+    return d->count;
 }
 
 List* list_createnode(char* key, int value)
@@ -131,73 +200,4 @@ List* list_delete(List* list)
         prev = p;
     }
     return NULL;
-}
-
-int delete_dictionary(Dictionary* d)
-{
-    if (d == NULL) {
-        return -1;
-    }
-    int count = 0;
-
-    for (int i = d->count; i >= 0; --i) {
-        free_list(d->lines[i]);
-
-        if (!d->lines[i]) {
-            count++;
-        }
-    }
-    free(d);
-    return count;
-}
-
-int fill_dictionary(Dictionary* d)
-{
-    if (d == NULL) {
-        return -1;
-    }
-
-    FILE* file;
-    char name[] = "./source/d.txt";
-    if ((file = fopen(name, "r")) == NULL) {
-        printf("Не удалось открыть файл\n");
-        return -1;
-    }
-
-    fseek(file, 0, SEEK_END);
-    long pos = ftell(file);
-    if (pos > 0) {
-        rewind(file);
-    } else {
-        return -1;
-    }
-
-    char* str = calloc(sizeof(char), 100);
-    if (str == NULL) {
-        return -1;
-    }
-
-    d->count = 0;
-
-    for (int i = 0; fgets(str, 100, file); i++) {
-        d->count++;
-
-        char* pch = strtok(str, " \n");
-
-        for (int j = 1; j < 4 && pch != NULL; j++) {
-            char* word = strdup(pch);
-            d->lines[i] = list_addend(d->lines[i], word, j);
-            pch = strtok(NULL, " \n");
-            printf("%ld %p %s\n",strlen(pch),&word,word);
-        }
-
-        while (pch != NULL) {
-            char* word = strdup(pch);
-            d->lines[i] = list_addend(d->lines[i], word, 0);
-            pch = strtok(NULL, " \n");
-        }
-    }
-    fclose(file);
-    free(str);
-    return d->count;
 }

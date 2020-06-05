@@ -30,12 +30,12 @@ void main_menu()
 {
     Dictionary* d = calloc(sizeof(Dictionary), 1);
 
-    int code = fill_dictionary(d);
+    int code = dictionary_fill(d);
     if (code == -1) {
-        delete_dictionary(d);
+        dictionary_delete(d);
         return;
     } else if (code < 16) {
-        delete_dictionary(d);
+        dictionary_delete(d);
         printf("%s\n", "Словарь слишком мал!");
         return;
     }
@@ -105,7 +105,7 @@ void main_menu()
     clrtoeol();
     refresh();
     endwin();
-    delete_dictionary(d);
+    dictionary_delete(d);
 }
 
 void modes_test(Dictionary* d, int mode)
