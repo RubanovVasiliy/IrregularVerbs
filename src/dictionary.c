@@ -4,6 +4,16 @@
 #include <stdlib.h>
 #include <string.h>
 
+int free_list(List* head)
+{
+    int count=0;
+    while (head) {
+        head = list_delete(head);
+        count++;
+    }
+    return count;
+}
+
 int list_print(List* node)
 {
     if (!node) {
