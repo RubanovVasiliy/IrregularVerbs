@@ -140,7 +140,7 @@ void modes_test(Dictionary* d, int mode)
             if (highlight == 4) {
                 choice = highlight;
             } else {
-                mode_menu_2(d, highlight);
+                difficulty_test(d, highlight);
             }
 
             break;
@@ -160,9 +160,9 @@ void destroy_win(WINDOW* local_win)
     delwin(local_win);
 }
 
-void mode_menu_2(Dictionary* d, int mode)
+void difficulty_test(Dictionary* d, int mode)
 {
-    WINDOW* menu_3;
+    WINDOW* diff_test;
     int highlight = 1;
     int choice = 0;
     int c;
@@ -171,23 +171,23 @@ void mode_menu_2(Dictionary* d, int mode)
     cbreak();
     int startx = (COLS - WIDTH) / 2;
     int starty = (LINES - HEIGHT) / 2;
-    int n_menu3 = sizeof(menu3) / sizeof(char*);
-    menu_3 = newwin(HEIGHT, WIDTH, starty, startx);
-    mvwprintw(menu_3, 1, 2, "%s", "Уровень сложности:");
-    keypad(menu_3, TRUE);
+    int n_diff_test = sizeof(menu_diff_test) / sizeof(char*); // тут под вопросом
+    diff_test = newwin(HEIGHT, WIDTH, starty, startx);
+    mvwprintw(diff_test, 1, 2, "%s", "Уровень сложности:");
+    keypad(diff_test, TRUE);
     refresh();
-    print_menu(menu_3, highlight, n_menu3, menu3);
+    print_menu(diff_test, highlight, n_diff_test, menu_diff_test);
     while (1) {
-        c = wgetch(menu_3);
+        c = wgetch(diff_test);
         switch (c) {
         case KEY_UP:
             if (highlight == 1)
-                highlight = n_menu3;
+                highlight = n_diff_test;
             else
                 --highlight;
             break;
         case KEY_DOWN:
-            if (highlight == n_menu3)
+            if (highlight == n_diff_test)
                 highlight = 1;
             else
                 ++highlight;
@@ -205,13 +205,13 @@ void mode_menu_2(Dictionary* d, int mode)
             }
             break;
         }
-        print_menu(menu_3, highlight, n_menu3, menu3);
+        print_menu(diff_test, highlight, n_diff_test, menu_diff_test);
         if (choice != 0)
             break;
     }
     clrtoeol();
     refresh();
-    destroy_win(menu_3);
+    destroy_win(diff_test);
 }
 
 void instruction()

@@ -4,7 +4,7 @@ const char* menu[] = {
         "Выход",
 };
 
-const char* menu3[] = {
+const char* menu_diff_test[] = {
         "* Простой ",
         "* Средний",
         "* Сложный",
