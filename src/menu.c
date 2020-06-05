@@ -80,7 +80,7 @@ void main_menu()
                 clear();
                 refresh();
             } else {
-                mode_menu(d, highlight);
+                modes_test(d, highlight);
                 clear();
                 refresh();
             }
@@ -100,7 +100,7 @@ void main_menu()
     free(d);
 }
 
-void mode_menu(Dictionary* d, int mode)
+void modes_test(Dictionary* d, int mode)
 {
     WINDOW* menu_2;
     int highlight = 1;

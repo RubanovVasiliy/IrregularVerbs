@@ -7,7 +7,7 @@
 #define HEIGHT 10
 
 void main_menu();
-void mode_menu(Dictionary* d, int mode);
+void modes_test(Dictionary* d, int mode);
 void destroy_win(WINDOW* local_win);
 void instruction();
 void mode_menu_2(Dictionary* d, int mode);
