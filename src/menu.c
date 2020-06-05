@@ -32,10 +32,10 @@ void main_menu()
 
     int code = fill_dictionary(d);
     if (code == -1) {
-        free(d);
+        delete_dictionary(d);
         return;
     } else if (code < 16) {
-        free(d);
+        delete_dictionary(d);
         printf("%s\n", "Словарь слишком мал!");
         return;
     }
@@ -105,7 +105,7 @@ void main_menu()
     clrtoeol();
     refresh();
     endwin();
-    free(d);
+    delete_dictionary(d);
 }
 
 void modes_test(Dictionary* d, int mode)
