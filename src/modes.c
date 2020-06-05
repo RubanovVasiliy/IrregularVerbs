@@ -31,7 +31,7 @@ int first_mode(WINDOW* win, Dictionary* d, int count)
     echo();
 
     char* result_str = calloc(sizeof(char), 450 + 110 * count);
-    char* temp = calloc(sizeof(char), 110);
+    char temp[110];
     char* str = calloc(sizeof(char), 21);
 
     List* node;
@@ -93,7 +93,7 @@ int first_mode(WINDOW* win, Dictionary* d, int count)
     strcat(result_str, temp);
 
     FILE* file;
-    if ((file = fopen("result_strs.log", "a+")) == NULL) {
+    if ((file = fopen("results.log", "a+")) == NULL) {
         wprintw(win, "Не удалось открыть файл, результаты не будут записаны.");
     }
 
@@ -105,7 +105,6 @@ int first_mode(WINDOW* win, Dictionary* d, int count)
 
     free(rand_sequence);
     free(str);
-    free(temp);
     free(result_str);
 
     return score;
