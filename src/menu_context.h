@@ -1,4 +1,4 @@
-const char* menu[] = {
+const char* start_menu[] = {
         "Начать тестирование",
         "Инструкция",
         "Выход",

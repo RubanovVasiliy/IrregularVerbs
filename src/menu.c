@@ -36,7 +36,7 @@ void main_menu()
         printf("%s\n", "Словарь слишком мал!");
         return;
     }
-    WINDOW* menu_win;
+    WINDOW* main_menu;
     int highlight = 1;
     int choice = 0;
     int c;
@@ -46,25 +46,25 @@ void main_menu()
     cbreak();
     int startx = (COLS - WIDTH) / 2;
     int starty = (LINES - HEIGHT) / 2;
-    int n_menu = sizeof(menu) / sizeof(char*);
-    menu_win = newwin(HEIGHT, WIDTH, starty, startx);
-    keypad(menu_win, TRUE);
+    int n_main_menu = sizeof(start_menu) / sizeof(char*);
+    main_menu = newwin(HEIGHT, WIDTH, starty, startx);
+    keypad(main_menu, TRUE);
 
     refresh();
-    print_menu(menu_win, highlight, n_menu, menu);
-    mvwprintw(menu_win, 1, 7, "%s", "IrregularVerbs:");
+    print_menu(main_menu, highlight, n_main_menu, start_menu);
+    mvwprintw(main_menu, 1, 7, "%s", "IrregularVerbs:");
     curs_set(0);
     while (1) {
-        c = wgetch(menu_win);
+        c = wgetch(main_menu);
         switch (c) {
         case KEY_UP:
             if (highlight == 1)
-                highlight = n_menu;
+                highlight = n_main_menu;
             else
                 --highlight;
             break;
         case KEY_DOWN:
-            if (highlight == n_menu)
+            if (highlight == n_main_menu)
                 highlight = 1;
             else
                 ++highlight;
@@ -90,7 +90,7 @@ void main_menu()
             refresh();
             break;
         }
-        print_menu(menu_win, highlight, n_menu, menu);
+        print_menu(main_menu, highlight, n_main_menu, start_menu);
         if (choice != 0)
             break;
     }
