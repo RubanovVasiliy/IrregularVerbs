@@ -79,7 +79,7 @@ int dictionary_delete(Dictionary* d)
     for (int i = d->count; i >= 0; --i) {
         list_free(d->lines[i]);
 
-        if (!d->lines[i]) {
+        if (d->lines[i]) {
             count++;
         }
     }
