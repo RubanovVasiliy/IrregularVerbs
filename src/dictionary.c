@@ -194,6 +194,7 @@ List* list_delete(List* list)
             list = p->next;
         else
             prev->next = p->next;
+        free(p->key);
         free(p);
         return list;
 
