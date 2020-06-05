@@ -5,7 +5,8 @@
 #include <ncurses.h>
 #include <stdio.h>
 
-void print_menu(WINDOW* menu_win, int highlight, int n_menu, const char** choices)
+void print_menu(
+        WINDOW* menu_win, int highlight, int n_menu, const char** choices)
 {
     int x, y, i;
     x = 2;
@@ -17,8 +18,7 @@ void print_menu(WINDOW* menu_win, int highlight, int n_menu, const char** choice
             wattron(menu_win, A_REVERSE);
             mvwprintw(menu_win, y, x, "%s", choices[i]);
             wattroff(menu_win, A_REVERSE);
-        } 
-        else
+        } else
             mvwprintw(menu_win, y, x, "%s", choices[i]);
         ++y;
     }
@@ -34,8 +34,7 @@ void main_menu()
     if (code == -1) {
         free(d);
         return;
-    } 
-    else if (code < 16) {
+    } else if (code < 16) {
         free(d);
         printf("%s\n", "Словарь слишком мал!");
         return;
@@ -83,13 +82,11 @@ void main_menu()
         case 10:
             if (highlight == 3) {
                 choice = highlight;
-            } 
-            else if (highlight == 2) {
+            } else if (highlight == 2) {
                 instruction();
                 clear();
                 refresh();
-            } 
-            else {
+            } else {
                 modes_test(d, highlight);
                 clear();
                 refresh();

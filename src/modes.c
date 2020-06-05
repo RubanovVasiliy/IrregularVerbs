@@ -49,13 +49,13 @@ int first_mode(WINDOW* win, Dictionary* d, int count)
     wprintw(win, temp);
     strcat(result_str, temp);
     sprintf(temp,
-        "%04d-%02d-%02d\n%02d:%02d:%02d\n",
-        aTm->tm_year + 1900,
-        aTm->tm_mon + 1,
-        aTm->tm_mday,
-        aTm->tm_hour,
-        aTm->tm_min,
-        aTm->tm_sec);
+            "%04d-%02d-%02d\n%02d:%02d:%02d\n",
+            aTm->tm_year + 1900,
+            aTm->tm_mon + 1,
+            aTm->tm_mday,
+            aTm->tm_hour,
+            aTm->tm_min,
+            aTm->tm_sec);
     strcat(result_str, temp);
 
     int* rand_sequence = NULL;
@@ -65,8 +65,8 @@ int first_mode(WINDOW* win, Dictionary* d, int count)
 
     for (int i = 0; i < count; i++) {
         wprintw(win,
-            "Введите перевод слова %s на русский язык:\n",
-            d->lines[rand_sequence[i]]->key);
+                "Введите перевод слова %s на русский язык:\n",
+                d->lines[rand_sequence[i]]->key);
         if (wscanw(win, "%" STRLEN(LEN) "s", str) == -1) {
             str[0] = '\0';
         }
@@ -76,20 +76,20 @@ int first_mode(WINDOW* win, Dictionary* d, int count)
         }
         node = list_search(d->lines[rand_sequence[i]], 0);
         sprintf(temp,
-            "%2d) Слово: %-10s Вы ввели: %-10s правильный ответ: %-10s\n",
-            i + 1,
-            d->lines[rand_sequence[i]]->key,
-            str,
-            node->key);
+                "%2d) Слово: %-10s Вы ввели: %-10s правильный ответ: %-10s\n",
+                i + 1,
+                d->lines[rand_sequence[i]]->key,
+                str,
+                node->key);
         strcat(result_str, temp);
     }
 
     wprintw(win, "\n");
     sprintf(temp,
-        "Ваш счет %.0f слов из %d, %.0f%%\n\n",
-        score,
-        count,
-        score / count * 100);
+            "Ваш счет %.0f слов из %d, %.0f%%\n\n",
+            score,
+            count,
+            score / count * 100);
     strcat(result_str, temp);
 
     FILE* file;
@@ -139,21 +139,21 @@ int second_mode(WINDOW* win, Dictionary* d, int count)
     wprintw(win, temp);
     strcat(result_str, temp);
     sprintf(temp,
-        "%04d-%02d-%02d\n%02d:%02d:%02d\n",
-        aTm->tm_year + 1900,
-        aTm->tm_mon + 1,
-        aTm->tm_mday,
-        aTm->tm_hour,
-        aTm->tm_min,
-        aTm->tm_sec);
+            "%04d-%02d-%02d\n%02d:%02d:%02d\n",
+            aTm->tm_year + 1900,
+            aTm->tm_mon + 1,
+            aTm->tm_mday,
+            aTm->tm_hour,
+            aTm->tm_min,
+            aTm->tm_sec);
     strcat(result_str, temp);
     generate_rand(&rand_sequence, count, d->count - 1);
 
     for (int i = 0; i < count; i++) {
         r_word = list_search(d->lines[rand_sequence[i]], 0);
         wprintw(win,
-            "Введите перевод слова %s на английский язык:\n",
-            r_word->key);
+                "Введите перевод слова %s на английский язык:\n",
+                r_word->key);
         if (wscanw(win, "%" STRLEN(LEN) "s", str) == -1) {
             str[0] = '\0';
         }
@@ -163,20 +163,20 @@ int second_mode(WINDOW* win, Dictionary* d, int count)
         }
         node = list_search(d->lines[rand_sequence[i]], 1);
         sprintf(temp,
-            "%2d) Слово: %10s Вы ввели: %-10s правильный ответ: %-10s\n",
-            i + 1,
-            r_word->key,
-            str,
-            node->key);
+                "%2d) Слово: %10s Вы ввели: %-10s правильный ответ: %-10s\n",
+                i + 1,
+                r_word->key,
+                str,
+                node->key);
         strcat(result_str, temp);
     }
 
     wprintw(win, "\n");
     sprintf(temp,
-        "Ваш счет %.0f слов из %d, %.0f%%\n\n",
-        score,
-        count,
-        score / count * 100);
+            "Ваш счет %.0f слов из %d, %.0f%%\n\n",
+            score,
+            count,
+            score / count * 100);
     strcat(result_str, temp);
 
     FILE* file;
@@ -228,13 +228,13 @@ int third_mode(WINDOW* win, Dictionary* d, int count)
     wprintw(win, temp);
     strcat(result_str, temp);
     sprintf(temp,
-        "%04d-%02d-%02d\n%02d:%02d:%02d\n",
-        aTm->tm_year + 1900,
-        aTm->tm_mon + 1,
-        aTm->tm_mday,
-        aTm->tm_hour,
-        aTm->tm_min,
-        aTm->tm_sec);
+            "%04d-%02d-%02d\n%02d:%02d:%02d\n",
+            aTm->tm_year + 1900,
+            aTm->tm_mon + 1,
+            aTm->tm_mday,
+            aTm->tm_hour,
+            aTm->tm_min,
+            aTm->tm_sec);
     strcat(result_str, temp);
 
     int* rand_sequence = NULL;
@@ -245,19 +245,19 @@ int third_mode(WINDOW* win, Dictionary* d, int count)
     for (int i = 0; i < count; i++) {
         r_word = list_search(d->lines[rand_sequence[i]], 0);
         wprintw(win,
-            "Введите три формы неправильного глагола слова %s на "
-            "английский "
-            "язык:\n",
-            r_word->key);
+                "Введите три формы неправильного глагола слова %s на "
+                "английский "
+                "язык:\n",
+                r_word->key);
 
         switch (
-            wscanw(win,
-                "%" STRLEN(LEN) "s"
-                                "%" STRLEN(LEN) "s"
-                                                "%" STRLEN(LEN) "s",
-                str1,
-                str2,
-                str3)) {
+                wscanw(win,
+                       "%" STRLEN(LEN) "s"
+                                       "%" STRLEN(LEN) "s"
+                                                       "%" STRLEN(LEN) "s",
+                       str1,
+                       str2,
+                       str3)) {
         case -1:
             str1[0] = '\0';
             str2[0] = '\0';
@@ -286,26 +286,26 @@ int third_mode(WINDOW* win, Dictionary* d, int count)
         e3_word = list_search(d->lines[rand_sequence[i]], 3);
 
         sprintf(temp,
-            "%d) Слово: %-2s Вы ввели: %-2s %-2s %-2s правильный ответ: "
-            "%-2s "
-            "%-2s %-2s\n",
-            i + 1,
-            r_word->key,
-            str1,
-            str2,
-            str3,
-            e1_word->key,
-            e2_word->key,
-            e3_word->key);
+                "%d) Слово: %-2s Вы ввели: %-2s %-2s %-2s правильный ответ: "
+                "%-2s "
+                "%-2s %-2s\n",
+                i + 1,
+                r_word->key,
+                str1,
+                str2,
+                str3,
+                e1_word->key,
+                e2_word->key,
+                e3_word->key);
         strcat(result_str, temp);
     }
 
     wprintw(win, "\n");
     sprintf(temp,
-        "Ваш счет %.0f слов из %d, %.0f%%\n\n",
-        score,
-        count,
-        score / count * 100);
+            "Ваш счет %.0f слов из %d, %.0f%%\n\n",
+            score,
+            count,
+            score / count * 100);
     strcat(result_str, temp);
 
     FILE* file;
