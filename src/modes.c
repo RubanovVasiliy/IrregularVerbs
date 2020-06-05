@@ -179,7 +179,7 @@ int second_mode(WINDOW* win, Dictionary* d, int count)
     strcat(result_str, temp);
 
     FILE* file;
-    if ((file = fopen("result_strs.log", "a+")) == NULL) {
+    if ((file = fopen("results.log", "a+")) == NULL) {
         wprintw(win, "Не удалось открыть файл, результаты не будут записаны.");
     }
 
