@@ -130,6 +130,24 @@ List* list_delete(List* list)
     return NULL;
 }
 
+int delete_dictionary(Dictionary* d)
+{
+    if (d == NULL) {
+        return -1;
+    }
+    int count = 0;
+
+    for (int i = d->count; i >= 0; --i) {
+        free_list(d->lines[i]);
+
+        if (!d->lines[i]) {
+            count++;
+        }
+    }
+    free(d);
+    return count;
+}
+
 int fill_dictionary(Dictionary* d)
 {
     if (d == NULL) {
