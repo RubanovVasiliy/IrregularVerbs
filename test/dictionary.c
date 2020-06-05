@@ -5,13 +5,13 @@
 #include <stdlib.h>
 #include <string.h>
 
-CTEST(dictionary, fillDictionary)
+CTEST(dictionary, fill_dictionary)
 {
     // Given
-    dictionary* d = calloc(sizeof(dictionary), 1);
+    Dictionary* d = calloc(sizeof(Dictionary), 1);
 
     // When
-    int real = fillDictionary(d);
+    int real = fill_dictionary(d);
 
     // Then
     const int expected = 42; //words in d.txt
@@ -23,15 +23,15 @@ CTEST(dictionary, fillDictionary)
 CTEST(dictionary, printDictionary)
 {
     // Given
-    dictionary* d = calloc(sizeof(dictionary), 1);
+    Dictionary* d = calloc(sizeof(Dictionary), 1);
 
     // When
-    int real = fillDictionary(d);
+    int real = fill_dictionary(d);
 
     // Then
     const int expected = 0;
 
-    real = printDictionary(d);
+    real = print_dictionary(d);
 
     ASSERT_EQUAL(expected, real);
     free(d);
@@ -110,13 +110,13 @@ CTEST(dictionary, list_search_bad)
     ASSERT_NULL(l);
 }
 
-CTEST(dictionary, fillDictionary_bad_1)
+CTEST(dictionary, fill_dictionary_bad_1)
 {
     // Given
-    dictionary* d = calloc(sizeof(dictionary), 1);
+    Dictionary* d = calloc(sizeof(Dictionary), 1);
 
     // When
-    int real = fillDictionary(d);
+    int real = fill_dictionary(d);
 
     // Then
     const int expected = -1;
@@ -125,18 +125,17 @@ CTEST(dictionary, fillDictionary_bad_1)
     free(d);
 }
 
-CTEST(dictionary, listprint)
+CTEST(dictionary, list_print)
 {
 
     // Given
     List* head = list_createnode("phone", 1);
 
     // When
-    int real = listprint(head);
-    
+    int real = list_print(head);
+
     // Then
     const int expected = 0;
 
     ASSERT_EQUAL(expected, real);
 }
-

@@ -28,9 +28,9 @@ void print_menu(WINDOW* menu_win, int highlight, int n_menu, const char** choice
 
 void main_menu()
 {
-    dictionary* d = calloc(sizeof(dictionary), 1);
+    Dictionary* d = calloc(sizeof(Dictionary), 1);
 
-    int code = fillDictionary(d);
+    int code = fill_dictionary(d);
     if (code == -1) {
         free(d);
         return;
@@ -111,7 +111,7 @@ void main_menu()
     free(d);
 }
 
-void modes_test(dictionary* d, int mode)
+void modes_test(Dictionary* d, int mode)
 {
     WINDOW* modes_test;
 
@@ -174,7 +174,7 @@ void destroy_win(WINDOW* local_win)
     delwin(local_win);
 }
 
-void difficulty_test(dictionary* d, int mode)
+void difficulty_test(Dictionary* d, int mode)
 {
     WINDOW* diff_test;
 
@@ -267,7 +267,7 @@ void instruction()
     destroy_win(inst);
 }
 
-void testing(dictionary* d, int mode, int level)
+void testing(Dictionary* d, int mode, int level)
 {
     WINDOW* test;
 
@@ -298,7 +298,7 @@ void testing(dictionary* d, int mode, int level)
         if (c == KEY_F(1))
             break;
     }
-    
+
     clrtoeol();
     refresh();
     destroy_win(test);

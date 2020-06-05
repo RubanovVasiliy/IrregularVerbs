@@ -25,7 +25,7 @@ void generate_rand(int** a, unsigned n, unsigned range)
     assert(temp == n);
 }
 
-int first_mode(WINDOW* win, dictionary* d, int count)
+int first_mode(WINDOW* win, Dictionary* d, int count)
 {
     scrollok(win, TRUE);
     echo();
@@ -111,7 +111,7 @@ int first_mode(WINDOW* win, dictionary* d, int count)
     return score;
 }
 
-int second_mode(WINDOW* win, dictionary* d, int count)
+int second_mode(WINDOW* win, Dictionary* d, int count)
 {
     scrollok(win, TRUE);
     echo();
@@ -198,7 +198,7 @@ int second_mode(WINDOW* win, dictionary* d, int count)
     return score;
 }
 
-int third_mode(WINDOW* win, dictionary* d, int count)
+int third_mode(WINDOW* win, Dictionary* d, int count)
 {
     scrollok(win, TRUE);
     echo();
@@ -325,6 +325,6 @@ int third_mode(WINDOW* win, dictionary* d, int count)
     free(str2);
     free(str3);
     free(result);
-    
+
     return score;
 }
