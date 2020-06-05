@@ -11,7 +11,7 @@ const char* menu_diff_test[] = {
         "Назад",
 };
 
-const char* menu2[] = {"* Первый", "* Второй", "* Третий", "Назад"};
+const char* menu_test[] = {"* Первый", "* Второй", "* Третий", "Назад"};
 
 const char* instruct[] = {
         "Добро пожаловать!",

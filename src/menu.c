@@ -102,7 +102,7 @@ void main_menu()
 
 void modes_test(Dictionary* d, int mode)
 {
-    WINDOW* menu_2;
+    WINDOW* modes_test;
     int highlight = 1;
     int choice = 0;
     int c;
@@ -112,23 +112,23 @@ void modes_test(Dictionary* d, int mode)
     cbreak();
     int startx = (COLS - WIDTH) / 2;
     int starty = (LINES - HEIGHT) / 2;
-    int n_menu2 = sizeof(menu2) / sizeof(char*);
-    menu_2 = newwin(HEIGHT, WIDTH, starty, startx);
-    mvwprintw(menu_2, 1, 2, "%s", "Выберите режим:");
-    keypad(menu_2, TRUE);
+    int n_menu_test = sizeof(menu_test) / sizeof(char*);
+    modes_test = newwin(HEIGHT, WIDTH, starty, startx);
+    mvwprintw(modes_test, 1, 2, "%s", "Выберите режим:");
+    keypad(modes_test, TRUE);
     refresh();
-    print_menu(menu_2, highlight, n_menu2, menu2);
+    print_menu(modes_test, highlight, n_menu_test, menu_test);
     while (1) {
-        c = wgetch(menu_2);
+        c = wgetch(modes_test);
         switch (c) {
         case KEY_UP:
             if (highlight == 1)
-                highlight = n_menu2;
+                highlight = n_menu_test;
             else
                 --highlight;
             break;
         case KEY_DOWN:
-            if (highlight == n_menu2)
+            if (highlight == n_menu_test)
                 highlight = 1;
             else
                 ++highlight;
@@ -145,13 +145,13 @@ void modes_test(Dictionary* d, int mode)
 
             break;
         }
-        print_menu(menu_2, highlight, n_menu2, menu2);
+        print_menu(modes_test, highlight, n_menu_test, menu_test);
         if (choice != 0)
             break;
     }
     clrtoeol();
     refresh();
-    destroy_win(menu_2);
+    destroy_win(modes_test);
 }
 
 void destroy_win(WINDOW* local_win)
