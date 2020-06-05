@@ -244,7 +244,7 @@ int third_mode(WINDOW* win, Dictionary* d, int count)
     for (int i = 0; i < count; i++) {
         r_word = list_search(d->lines[rand_sequence[i]], 0);
         wprintw(win,
-                "Введите три формы неправильного глагола слова %s на "
+                "Введите три формы неправильного глагола %s на "
                 "английский "
                 "язык:\n",
                 r_word->key);
