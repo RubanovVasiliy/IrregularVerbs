@@ -24,7 +24,7 @@ CTEST(dictionary, list_creatnode)
 {
     // Given
     List* l = list_createnode("phone", 1);
-    
+
     // Then
     ASSERT_NOT_NULL(l);
 
@@ -121,7 +121,6 @@ CTEST(dictionary, list_search_bad)
     ASSERT_NULL(l);
 
     list_free(head);
-
 }
 
 CTEST(dictionary, dictionary_fill_bad_1)
@@ -137,7 +136,6 @@ CTEST(dictionary, dictionary_fill_bad_1)
     const int expected = -1;
 
     ASSERT_NOT_EQUAL(expected, real);
-    
 }
 
 CTEST(dictionary, list_print)
@@ -170,4 +168,53 @@ CTEST(dictionary, printDictionary)
     dictionary_delete(d);
 
     ASSERT_EQUAL(expected, real);
+}
+
+CTEST(dictionary, dictionary_delete)
+{
+
+    // Given
+    Dictionary* d = calloc(sizeof(Dictionary), 1);
+
+    // When
+    int real = dictionary_fill(d);
+
+    // Then
+    const int expected = dictionary_delete(d);
+
+    ASSERT_EQUAL(expected, real);
+}
+
+CTEST(dictionary, list_delete)
+{
+
+    // Given
+    char* str1 = strdup("phone");
+    char* str2 = strdup("box");
+    List* l = list_createnode(str1, 1);
+    list_addend(l, str2, 2);
+
+    // Then
+    l = list_delete(l);
+    l = list_delete(l);
+     
+    ASSERT_NULL(l);
+
+}
+
+CTEST(dictionary, list_free) {
+   // Given
+    char* str1 = strdup("phone");
+    char* str2 = strdup("box");
+    List* l = list_createnode(str1, 1);
+    list_addend(l, str2, 2);
+
+    // When
+    int real = list_free(l);
+
+    // Then
+    const int expected = 2;
+     
+    ASSERT_EQUAL(expected, real);
+
 }
