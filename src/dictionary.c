@@ -114,6 +114,22 @@ List* list_addend(List* node, char* key, int value)
     return node;
 }
 
+List* list_delete(List* list)
+{
+    List *p, *prev = NULL;
+    for (p = list; p != NULL; p = p->next) {
+        if (prev == NULL)
+            list = p->next;
+        else
+            prev->next = p->next;
+        free(p);
+        return list;
+
+        prev = p;
+    }
+    return NULL;
+}
+
 int fill_dictionary(Dictionary* d)
 {
     if (d == NULL) {
