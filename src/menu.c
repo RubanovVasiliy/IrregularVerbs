@@ -5,41 +5,48 @@
 #include <ncurses.h>
 #include <stdio.h>
 
-void print_menu(
-        WINDOW* menu_win, int highlight, int n_menu, const char** choices)
+void print_menu(WINDOW* menu_win, int highlight, int n_menu, const char** choices)
 {
     int x, y, i;
     x = 2;
     y = 3;
     box(menu_win, 0, 0);
+
     for (i = 0; i < n_menu; ++i) {
         if (highlight == i + 1) {
             wattron(menu_win, A_REVERSE);
             mvwprintw(menu_win, y, x, "%s", choices[i]);
             wattroff(menu_win, A_REVERSE);
-        } else
+        } 
+        else
             mvwprintw(menu_win, y, x, "%s", choices[i]);
         ++y;
     }
+
     wrefresh(menu_win);
 }
 
 void main_menu()
 {
     dictionary* d = calloc(sizeof(dictionary), 1);
+
     int code = fillDictionary(d);
     if (code == -1) {
         free(d);
         return;
-    } else if (code < 16) {
+    } 
+    else if (code < 16) {
         free(d);
         printf("%s\n", "Словарь слишком мал!");
         return;
     }
+
     WINDOW* main_menu;
+
     int highlight = 1;
     int choice = 0;
     int c;
+
     initscr();
     clear();
     noecho();
@@ -49,11 +56,12 @@ void main_menu()
     int n_main_menu = sizeof(start_menu) / sizeof(char*);
     main_menu = newwin(HEIGHT, WIDTH, starty, startx);
     keypad(main_menu, TRUE);
-
     refresh();
+
     print_menu(main_menu, highlight, n_main_menu, start_menu);
     mvwprintw(main_menu, 1, 7, "%s", "IrregularVerbs:");
     curs_set(0);
+
     while (1) {
         c = wgetch(main_menu);
         switch (c) {
@@ -75,11 +83,13 @@ void main_menu()
         case 10:
             if (highlight == 3) {
                 choice = highlight;
-            } else if (highlight == 2) {
+            } 
+            else if (highlight == 2) {
                 instruction();
                 clear();
                 refresh();
-            } else {
+            } 
+            else {
                 modes_test(d, highlight);
                 clear();
                 refresh();
@@ -94,6 +104,7 @@ void main_menu()
         if (choice != 0)
             break;
     }
+
     clrtoeol();
     refresh();
     endwin();
@@ -103,6 +114,7 @@ void main_menu()
 void modes_test(dictionary* d, int mode)
 {
     WINDOW* modes_test;
+
     int highlight = 1;
     int choice = 0;
     int c;
@@ -117,7 +129,9 @@ void modes_test(dictionary* d, int mode)
     mvwprintw(modes_test, 1, 2, "%s", "Выберите режим:");
     keypad(modes_test, TRUE);
     refresh();
+
     print_menu(modes_test, highlight, n_menu_test, menu_test);
+
     while (1) {
         c = wgetch(modes_test);
         switch (c) {
@@ -142,13 +156,13 @@ void modes_test(dictionary* d, int mode)
             } else {
                 difficulty_test(d, highlight);
             }
-
             break;
         }
         print_menu(modes_test, highlight, n_menu_test, menu_test);
         if (choice != 0)
             break;
     }
+
     clrtoeol();
     refresh();
     destroy_win(modes_test);
@@ -163,20 +177,24 @@ void destroy_win(WINDOW* local_win)
 void difficulty_test(dictionary* d, int mode)
 {
     WINDOW* diff_test;
+
     int highlight = 1;
     int choice = 0;
     int c;
+
     clear();
     noecho();
     cbreak();
     int startx = (COLS - WIDTH) / 2;
     int starty = (LINES - HEIGHT) / 2;
-    int n_diff_test = sizeof(menu_diff_test) / sizeof(char*); // тут под вопросом
+    int n_diff_test = sizeof(menu_diff_test) / sizeof(char*);
     diff_test = newwin(HEIGHT, WIDTH, starty, startx);
     mvwprintw(diff_test, 1, 2, "%s", "Уровень сложности:");
     keypad(diff_test, TRUE);
     refresh();
+
     print_menu(diff_test, highlight, n_diff_test, menu_diff_test);
+
     while (1) {
         c = wgetch(diff_test);
         switch (c) {
@@ -209,6 +227,7 @@ void difficulty_test(dictionary* d, int mode)
         if (choice != 0)
             break;
     }
+
     clrtoeol();
     refresh();
     destroy_win(diff_test);
@@ -216,9 +235,10 @@ void difficulty_test(dictionary* d, int mode)
 
 void instruction()
 {
+    WINDOW* inst;
+
     int c;
     int highlight = 0;
-    WINDOW* inst;
     clear();
     noecho();
     cbreak();
@@ -228,8 +248,9 @@ void instruction()
     inst = newwin(LINES, COLS, starty, startx);
     keypad(inst, TRUE);
     refresh();
+
     print_menu(inst, highlight, n_instruct, instruct);
-    wrefresh(inst);
+
     while (1) {
         c = wgetch(inst);
         switch (c) {
@@ -248,8 +269,9 @@ void instruction()
 
 void testing(dictionary* d, int mode, int level)
 {
-    int c;
     WINDOW* test;
+
+    int c;
     clear();
     cbreak();
     int startx = 0;
@@ -258,6 +280,7 @@ void testing(dictionary* d, int mode, int level)
     keypad(test, TRUE);
     refresh();
     wrefresh(test);
+
     if (mode == 1) {
         first_mode(test, d, level * 5);
     } else if (mode == 2) {
@@ -265,7 +288,6 @@ void testing(dictionary* d, int mode, int level)
     } else if (mode == 3) {
         third_mode(test, d, level * 5);
     }
-
     while (1) {
         c = wgetch(test);
         switch (c) {
@@ -276,6 +298,7 @@ void testing(dictionary* d, int mode, int level)
         if (c == KEY_F(1))
             break;
     }
+    
     clrtoeol();
     refresh();
     destroy_win(test);
