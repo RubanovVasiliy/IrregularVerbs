@@ -10,7 +10,7 @@ void print_menu(
 {
     int x, y, i;
     x = 2;
-    y = 2;
+    y = 3;
     box(menu_win, 0, 0);
     for (i = 0; i < n_menu; ++i) {
         if (highlight == i + 1) {
@@ -27,8 +27,13 @@ void print_menu(
 void main_menu()
 {
     Dictionary* d = calloc(sizeof(Dictionary), 1);
-    if (fillDictionary(d) == -1) {
+    int code = fillDictionary(d);
+    if (code == -1) {
         free(d);
+        return;
+    } else if (code < 16) {
+        free(d);
+        printf("%s\n", "Словарь слишком мал!");
         return;
     }
     WINDOW* menu_win;
@@ -47,6 +52,8 @@ void main_menu()
 
     refresh();
     print_menu(menu_win, highlight, n_menu, menu);
+    mvwprintw(menu_win, 1, 7, "%s", "IrregularVerbs:");
+    curs_set(0);
     while (1) {
         c = wgetch(menu_win);
         switch (c) {
@@ -107,6 +114,7 @@ void mode_menu(Dictionary* d, int mode)
     int starty = (LINES - HEIGHT) / 2;
     int n_menu2 = sizeof(menu2) / sizeof(char*);
     menu_2 = newwin(HEIGHT, WIDTH, starty, startx);
+    mvwprintw(menu_2, 1, 2, "%s", "Выберите режим:");
     keypad(menu_2, TRUE);
     refresh();
     print_menu(menu_2, highlight, n_menu2, menu2);
@@ -125,6 +133,9 @@ void mode_menu(Dictionary* d, int mode)
             else
                 ++highlight;
             break;
+        case KEY_F(1):
+            choice = highlight;
+            break;
         case 10:
             if (highlight == 4) {
                 choice = highlight;
@@ -133,15 +144,6 @@ void mode_menu(Dictionary* d, int mode)
             }
 
             break;
-        default:
-            mvprintw(
-                    24,
-                    0,
-                    "Hopefully it can be printed as '%c'. Select the field you "
-                    "need "
-                    "and press ENTER",
-                    c);
-            refresh();
         }
         print_menu(menu_2, highlight, n_menu2, menu2);
         if (choice != 0)
@@ -171,6 +173,7 @@ void mode_menu_2(Dictionary* d, int mode)
     int starty = (LINES - HEIGHT) / 2;
     int n_menu3 = sizeof(menu3) / sizeof(char*);
     menu_3 = newwin(HEIGHT, WIDTH, starty, startx);
+    mvwprintw(menu_3, 1, 2, "%s", "Уровень сложности:");
     keypad(menu_3, TRUE);
     refresh();
     print_menu(menu_3, highlight, n_menu3, menu3);
@@ -189,6 +192,9 @@ void mode_menu_2(Dictionary* d, int mode)
             else
                 ++highlight;
             break;
+        case KEY_F(1):
+            choice = highlight;
+            break;
         case 10:
             if (highlight == 4) {
                 choice = highlight;
@@ -198,15 +204,6 @@ void mode_menu_2(Dictionary* d, int mode)
                 refresh();
             }
             break;
-        default:
-            mvprintw(
-                    24,
-                    0,
-                    "Hopefully it can be printed as '%c'. Select the field you "
-                    "need "
-                    "and press ENTER",
-                    c);
-            refresh();
         }
         print_menu(menu_3, highlight, n_menu3, menu3);
         if (choice != 0)
@@ -276,11 +273,8 @@ void testing(Dictionary* d, int mode, int level)
             break;
         }
         refresh();
-        if (c == KEY_F(2))
+        if (c == KEY_F(1))
             break;
-        else {
-            wprintw(test, "\nНажмите клавишу F2 для выхода\n");
-        }
     }
     clrtoeol();
     refresh();
