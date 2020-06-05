@@ -5,66 +5,74 @@
 #include <ncurses.h>
 #include <stdio.h>
 
-void print_menu(
-        WINDOW* menu_win, int highlight, int n_menu, const char** choices)
+void print_menu(WINDOW* menu_win, int highlight, int n_menu, const char** choices)
 {
     int x, y, i;
     x = 2;
     y = 3;
     box(menu_win, 0, 0);
+
     for (i = 0; i < n_menu; ++i) {
         if (highlight == i + 1) {
             wattron(menu_win, A_REVERSE);
             mvwprintw(menu_win, y, x, "%s", choices[i]);
             wattroff(menu_win, A_REVERSE);
-        } else
+        } 
+        else
             mvwprintw(menu_win, y, x, "%s", choices[i]);
         ++y;
     }
+
     wrefresh(menu_win);
 }
 
 void main_menu()
 {
     Dictionary* d = calloc(sizeof(Dictionary), 1);
-    int code = fillDictionary(d);
+
+    int code = fill_dictionary(d);
     if (code == -1) {
         free(d);
         return;
-    } else if (code < 16) {
+    } 
+    else if (code < 16) {
         free(d);
         printf("%s\n", "Словарь слишком мал!");
         return;
     }
-    WINDOW* menu_win;
+
+    WINDOW* main_menu;
+
     int highlight = 1;
     int choice = 0;
     int c;
+
     initscr();
     clear();
     noecho();
     cbreak();
     int startx = (COLS - WIDTH) / 2;
     int starty = (LINES - HEIGHT) / 2;
-    int n_menu = sizeof(menu) / sizeof(char*);
-    menu_win = newwin(HEIGHT, WIDTH, starty, startx);
-    keypad(menu_win, TRUE);
-
+    int n_main_menu = sizeof(start_menu) / sizeof(char*);
+    main_menu = newwin(HEIGHT, WIDTH, starty, startx);
+    keypad(main_menu, TRUE);
     refresh();
-    print_menu(menu_win, highlight, n_menu, menu);
-    mvwprintw(menu_win, 1, 7, "%s", "IrregularVerbs:");
+
+    print_menu(main_menu, highlight, n_main_menu, start_menu);
+    mvwprintw(main_menu, 1, 7, "%s", "IrregularVerbs:");
     curs_set(0);
+
     while (1) {
-        c = wgetch(menu_win);
+        c = wgetch(main_menu);
         switch (c) {
         case KEY_UP:
             if (highlight == 1)
-                highlight = n_menu;
+                highlight = n_main_menu;
             else
                 --highlight;
             break;
         case KEY_DOWN:
-            if (highlight == n_menu)
+            if (highlight == n_main_menu)
                 highlight = 1;
             else
                 ++highlight;
@@ -75,12 +83,14 @@ void main_menu()
         case 10:
             if (highlight == 3) {
                 choice = highlight;
-            } else if (highlight == 2) {
+            } 
+            else if (highlight == 2) {
                 instruction();
                 clear();
                 refresh();
-            } else {
-                mode_menu(d, highlight);
+            } 
+            else {
+                modes_test(d, highlight);
                 clear();
                 refresh();
             }
@@ -90,19 +100,21 @@ void main_menu()
             refresh();
             break;
         }
-        print_menu(menu_win, highlight, n_menu, menu);
+        print_menu(main_menu, highlight, n_main_menu, start_menu);
         if (choice != 0)
             break;
     }
+
     clrtoeol();
     refresh();
     endwin();
     free(d);
 }
 
-void mode_menu(Dictionary* d, int mode)
+void modes_test(Dictionary* d, int mode)
 {
-    WINDOW* menu_2;
+    WINDOW* modes_test;
+
     int highlight = 1;
     int choice = 0;
     int c;
@@ -112,23 +124,25 @@ void mode_menu(Dictionary* d, int mode)
     cbreak();
     int startx = (COLS - WIDTH) / 2;
     int starty = (LINES - HEIGHT) / 2;
-    int n_menu2 = sizeof(menu2) / sizeof(char*);
-    menu_2 = newwin(HEIGHT, WIDTH, starty, startx);
-    mvwprintw(menu_2, 1, 2, "%s", "Выберите режим:");
-    keypad(menu_2, TRUE);
+    int n_menu_test = sizeof(menu_test) / sizeof(char*);
+    modes_test = newwin(HEIGHT, WIDTH, starty, startx);
+    mvwprintw(modes_test, 1, 2, "%s", "Выберите режим:");
+    keypad(modes_test, TRUE);
     refresh();
-    print_menu(menu_2, highlight, n_menu2, menu2);
+
+    print_menu(modes_test, highlight, n_menu_test, menu_test);
+
     while (1) {
-        c = wgetch(menu_2);
+        c = wgetch(modes_test);
         switch (c) {
         case KEY_UP:
             if (highlight == 1)
-                highlight = n_menu2;
+                highlight = n_menu_test;
             else
                 --highlight;
             break;
         case KEY_DOWN:
-            if (highlight == n_menu2)
+            if (highlight == n_menu_test)
                 highlight = 1;
             else
                 ++highlight;
@@ -140,18 +154,18 @@ void mode_menu(Dictionary* d, int mode)
             if (highlight == 4) {
                 choice = highlight;
             } else {
-                mode_menu_2(d, highlight);
+                difficulty_test(d, highlight);
             }
-
             break;
         }
-        print_menu(menu_2, highlight, n_menu2, menu2);
+        print_menu(modes_test, highlight, n_menu_test, menu_test);
         if (choice != 0)
             break;
     }
+
     clrtoeol();
     refresh();
-    destroy_win(menu_2);
+    destroy_win(modes_test);
 }
 
 void destroy_win(WINDOW* local_win)
@@ -160,34 +174,38 @@ void destroy_win(WINDOW* local_win)
     delwin(local_win);
 }
 
-void mode_menu_2(Dictionary* d, int mode)
+void difficulty_test(Dictionary* d, int mode)
 {
-    WINDOW* menu_3;
+    WINDOW* diff_test;
+
     int highlight = 1;
     int choice = 0;
     int c;
+
     clear();
     noecho();
     cbreak();
     int startx = (COLS - WIDTH) / 2;
     int starty = (LINES - HEIGHT) / 2;
-    int n_menu3 = sizeof(menu3) / sizeof(char*);
-    menu_3 = newwin(HEIGHT, WIDTH, starty, startx);
-    mvwprintw(menu_3, 1, 2, "%s", "Уровень сложности:");
-    keypad(menu_3, TRUE);
+    int n_diff_test = sizeof(menu_diff_test) / sizeof(char*);
+    diff_test = newwin(HEIGHT, WIDTH, starty, startx);
+    mvwprintw(diff_test, 1, 2, "%s", "Уровень сложности:");
+    keypad(diff_test, TRUE);
     refresh();
-    print_menu(menu_3, highlight, n_menu3, menu3);
+
+    print_menu(diff_test, highlight, n_diff_test, menu_diff_test);
+
     while (1) {
-        c = wgetch(menu_3);
+        c = wgetch(diff_test);
         switch (c) {
         case KEY_UP:
             if (highlight == 1)
-                highlight = n_menu3;
+                highlight = n_diff_test;
             else
                 --highlight;
             break;
         case KEY_DOWN:
-            if (highlight == n_menu3)
+            if (highlight == n_diff_test)
                 highlight = 1;
             else
                 ++highlight;
@@ -205,20 +223,22 @@ void mode_menu_2(Dictionary* d, int mode)
             }
             break;
         }
-        print_menu(menu_3, highlight, n_menu3, menu3);
+        print_menu(diff_test, highlight, n_diff_test, menu_diff_test);
         if (choice != 0)
             break;
     }
+
     clrtoeol();
     refresh();
-    destroy_win(menu_3);
+    destroy_win(diff_test);
 }
 
 void instruction()
 {
+    WINDOW* inst;
+
     int c;
     int highlight = 0;
-    WINDOW* inst;
     clear();
     noecho();
     cbreak();
@@ -228,8 +248,9 @@ void instruction()
     inst = newwin(LINES, COLS, starty, startx);
     keypad(inst, TRUE);
     refresh();
+
     print_menu(inst, highlight, n_instruct, instruct);
-    wrefresh(inst);
+
     while (1) {
         c = wgetch(inst);
         switch (c) {
@@ -248,8 +269,9 @@ void instruction()
 
 void testing(Dictionary* d, int mode, int level)
 {
-    int c;
     WINDOW* test;
+
+    int c;
     clear();
     cbreak();
     int startx = 0;
@@ -258,6 +280,7 @@ void testing(Dictionary* d, int mode, int level)
     keypad(test, TRUE);
     refresh();
     wrefresh(test);
+
     if (mode == 1) {
         first_mode(test, d, level * 5);
     } else if (mode == 2) {
@@ -265,7 +288,6 @@ void testing(Dictionary* d, int mode, int level)
     } else if (mode == 3) {
         third_mode(test, d, level * 5);
     }
-
     while (1) {
         c = wgetch(test);
         switch (c) {
@@ -276,6 +298,7 @@ void testing(Dictionary* d, int mode, int level)
         if (c == KEY_F(1))
             break;
     }
+
     clrtoeol();
     refresh();
     destroy_win(test);

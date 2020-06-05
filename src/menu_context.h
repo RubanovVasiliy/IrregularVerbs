@@ -1,17 +1,17 @@
-const char* menu[] = {
+const char* start_menu[] = {
         "Начать тестирование",
         "Инструкция",
         "Выход",
 };
 
-const char* menu3[] = {
+const char* menu_diff_test[] = {
         "* Простой ",
         "* Средний",
         "* Сложный",
         "Назад",
 };
 
-const char* menu2[] = {"* Первый", "* Второй", "* Третий", "Назад"};
+const char* menu_test[] = {"* Первый", "* Второй", "* Третий", "Назад"};
 
 const char* instruct[] = {
         "Добро пожаловать!",

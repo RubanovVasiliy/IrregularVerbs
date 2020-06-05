@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-int listprint(List* node)
+int list_print(List* node)
 {
     if (!node) {
         return -1;
@@ -18,19 +18,19 @@ int listprint(List* node)
     return 0;
 }
 
-int printDictionary(Dictionary* d)
+int print_dictionary(Dictionary* d)
 {
     if (!d) {
         return -1;
     }
     for (int i = 0; i < d->count; i++) {
-        listprint(d->lines[i]);
+        list_print(d->lines[i]);
         printf("\n");
     }
     return 0;
 }
 
-int wlistprint(WINDOW* win, List* node)
+int wlist_print(WINDOW* win, List* node)
 {
     if (!node) {
         return -1;
@@ -44,13 +44,13 @@ int wlistprint(WINDOW* win, List* node)
     return 0;
 }
 
-int wprintDictionary(WINDOW* win, Dictionary* d)
+int wprint_dictionary(WINDOW* win, Dictionary* d)
 {
     if (!d) {
         return -1;
     }
     for (int i = 0; i < d->count; i++) {
-        wlistprint(win, d->lines[i]);
+        wlist_print(win, d->lines[i]);
         wprintw(win, "\n");
     }
     return 0;
@@ -104,7 +104,7 @@ List* list_addend(List* node, char* key, int value)
     return node;
 }
 
-int fillDictionary(Dictionary* d)
+int fill_dictionary(Dictionary* d)
 {
     if (d == NULL) {
         return -1;
