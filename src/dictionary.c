@@ -124,7 +124,6 @@ int dictionary_fill(Dictionary* d)
             char* word = strdup(pch);
             d->lines[i] = list_addend(d->lines[i], word, j);
             pch = strtok(NULL, " \n");
-            printf("%ld %p %s\n", strlen(pch), &word, word);
         }
 
         while (pch != NULL) {
