@@ -34,11 +34,14 @@ CTEST(dictionary, list_creatnode)
 CTEST(dictionary, list_addend)
 {
     //Given
-    List* head = list_createnode("forest", 1);
+    char* str1 = strdup("forest");
+    char* str2 = strdup("box");
+
+    List* head = list_createnode(str1, 1);
 
     //Then
-    List* add = list_addend(head, "box", 2);
-    
+    List* add = list_addend(head, str2, 2);
+
     ASSERT_NOT_NULL(add);
 
     list_free(head);
@@ -47,9 +50,13 @@ CTEST(dictionary, list_addend)
 CTEST(dictionary, list_lookup)
 {
     // Given
-    List* head = list_createnode("phone", 1);
-    list_addend(head, "box", 2);
-    list_addend(head, "table", 3);
+    char* str1 = strdup("phone");
+    char* str2 = strdup("box");
+    char* str3 = strdup("table");
+
+    List* head = list_createnode(str1, 1);
+    list_addend(head, str2, 2);
+    list_addend(head, str3, 3);
 
     // Then
     List* l = list_lookup(head, "box");
@@ -62,9 +69,13 @@ CTEST(dictionary, list_lookup)
 CTEST(dictionary, list_lookup_bad)
 {
     // Given
-    List* head = list_createnode("phone", 1);
-    list_addend(head, "box", 2);
-    list_addend(head, "table", 3);
+    char* str1 = strdup("phone");
+    char* str2 = strdup("box");
+    char* str3 = strdup("table");
+
+    List* head = list_createnode(str1, 1);
+    list_addend(head, str2, 2);
+    list_addend(head, str3, 3);
 
     // Then
     List* l = list_lookup(head, "cherry");
@@ -77,9 +88,13 @@ CTEST(dictionary, list_lookup_bad)
 CTEST(dictionary, list_search)
 {
     // Given
-    List* head = list_createnode("phone", 1);
-    list_addend(head, "box", 2);
-    list_addend(head, "table", 3);
+    char* str1 = strdup("phone");
+    char* str2 = strdup("box");
+    char* str3 = strdup("table");
+
+    List* head = list_createnode(str1, 1);
+    list_addend(head, str2, 2);
+    list_addend(head, str3, 3);
 
     // Then
     List* l = list_search(head, 2);
@@ -92,9 +107,13 @@ CTEST(dictionary, list_search)
 CTEST(dictionary, list_search_bad)
 {
     // Given
-    List* head = list_createnode("phone", 1);
-    list_addend(head, "box", 2);
-    list_addend(head, "table", 3);
+    char* str1 = strdup("phone");
+    char* str2 = strdup("box");
+    char* str3 = strdup("table");
+
+    List* head = list_createnode(str1, 1);
+    list_addend(head, str2, 2);
+    list_addend(head, str3, 3);
 
     // Then
     List* l = list_search(head, 5);
