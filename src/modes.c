@@ -327,3 +327,14 @@ int third_mode(WINDOW* win, Dictionary* d, int count)
 
     return score;
 }
+
+int write_log(char* input){
+        FILE* file;
+    if ((file = fopen("results.log", "a+")) == NULL) {
+        return -1;
+    }
+    fprintf(file, "%s", input);
+    fclose(file);
+    
+    return 0;
+}
