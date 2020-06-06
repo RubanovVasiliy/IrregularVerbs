@@ -1,42 +1,42 @@
-become became become становиться 1
-begin began begun начинать 2
-break broke broken ломать 3
-bring brought brought приносить 4
-build built built строить 5
-choose chose chosen выбирать 6
-come came come приходить 7
-cut cut cut резать 8
-do did done делать 9
-draw drew drawn рисовать 10
-dream dreamt dreamt мечтать 11
-drink drank drunk пить 12
-drive drove driven водить 13
-eat ate eaten есть 14
-fly flew flown летать 15
-forget forgot forgotten забывать 16
-get got got получить 17
-give gave given давать 18
-go went gone идти 19
-have had had иметь 20
-hear heard heard слышать 21
-keep kept kept держаться сохранять 22
-know knew known знать 23
-learn learnt learnt учить 24
-leave left left покидать 25
-make made made сделать 26
-meet met met встречать 27
-put put put класть 28
-read read read читать 29
-run ran run бегать 30
-say said said сказать 31
-see saw seen видеть 32
-sleep slept slept спать 33 
-speak apoke spoken говорить 34 
-stand stood stood оставаться 35
-swim swam swum плавать 36
-take took taken принимать 37 
-tell told told говорить 38
-think thought thought думать 39
-understand understood understood понимать 40
-wake woke woken вставать 41
-write wrote wroten писать 42
+become became become становиться
+begin began begun начинать
+break broke broken ломать
+bring brought brought приносить
+build built built строить
+choose chose chosen выбирать
+come came come приходить
+cut cut cut резать
+do did done делать
+draw drew drawn рисовать
+dream dreamt dreamt мечтать
+drink drank drunk пить
+drive drove driven водить
+eat ate eaten есть
+fly flew flown летать
+forget forgot forgotten забывать
+get got got получить
+give gave given давать
+go went gone идти
+have had had иметь
+hear heard heard слышать
+keep kept kept держаться сохранять
+know knew known знать
+learn learnt learnt учить
+leave left left покидать
+make made made сделать
+meet met met встречать
+put put put класть
+read read read читать
+run ran run бегать
+say said said сказать
+see saw seen видеть
+sleep slept slept спать
+speak apoke spoken говорить
+stand stood stood оставаться
+swim swam swum плавать
+take took taken принимать
+tell told told рассказывать
+think thought thought думать
+understand understood understood понимать
+wake woke woken вставать
+write wrote wroten писать

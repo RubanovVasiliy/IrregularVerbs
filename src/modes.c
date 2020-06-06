@@ -31,7 +31,7 @@ int first_mode(WINDOW* win, Dictionary* d, int count)
     echo();
 
     char* result_str = calloc(sizeof(char), 450 + 110 * count);
-    char* temp = calloc(sizeof(char), 110);
+    char temp[110];
     char* str = calloc(sizeof(char), 21);
 
     List* node;
@@ -93,7 +93,7 @@ int first_mode(WINDOW* win, Dictionary* d, int count)
     strcat(result_str, temp);
 
     FILE* file;
-    if ((file = fopen("result_strs.log", "a+")) == NULL) {
+    if ((file = fopen("results.log", "a+")) == NULL) {
         wprintw(win, "Не удалось открыть файл, результаты не будут записаны.");
     }
 
@@ -105,7 +105,6 @@ int first_mode(WINDOW* win, Dictionary* d, int count)
 
     free(rand_sequence);
     free(str);
-    free(temp);
     free(result_str);
 
     return score;
@@ -123,7 +122,7 @@ int second_mode(WINDOW* win, Dictionary* d, int count)
     float score = 0;
 
     char* result_str = calloc(sizeof(char), 450 + 110 * count);
-    char* temp = calloc(sizeof(char), 110);
+    char temp[110];
     char* str = calloc(sizeof(char), 21);
 
     if (result_str == NULL || temp == NULL || str == NULL) {
@@ -180,7 +179,7 @@ int second_mode(WINDOW* win, Dictionary* d, int count)
     strcat(result_str, temp);
 
     FILE* file;
-    if ((file = fopen("result_strs.log", "a+")) == NULL) {
+    if ((file = fopen("results.log", "a+")) == NULL) {
         wprintw(win, "Не удалось открыть файл, результаты не будут записаны.");
     }
 
@@ -192,7 +191,6 @@ int second_mode(WINDOW* win, Dictionary* d, int count)
 
     free(rand_sequence);
     free(str);
-    free(temp);
     free(result_str);
 
     return score;
@@ -245,7 +243,7 @@ int third_mode(WINDOW* win, Dictionary* d, int count)
     for (int i = 0; i < count; i++) {
         r_word = list_search(d->lines[rand_sequence[i]], 0);
         wprintw(win,
-                "Введите три формы неправильного глагола слова %s на "
+                "Введите три формы неправильного глагола %s на "
                 "английский "
                 "язык:\n",
                 r_word->key);
@@ -309,7 +307,7 @@ int third_mode(WINDOW* win, Dictionary* d, int count)
     strcat(result_str, temp);
 
     FILE* file;
-    if ((file = fopen("result_strs.log", "a+")) == NULL) {
+    if ((file = fopen("results.log", "a+")) == NULL) {
         wprintw(win, "Не удалось открыть файл, результаты не будут записаны.");
     }
 
