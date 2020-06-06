@@ -9,7 +9,7 @@ run: clean src
 test_run: clean test
 	./bin/t
 
-resulst:
+results:
 	cat results.log
 
 
