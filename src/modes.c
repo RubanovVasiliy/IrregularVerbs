@@ -92,16 +92,13 @@ int first_mode(WINDOW* win, Dictionary* d, int count)
             score / count * 100);
     strcat(result_str, temp);
 
-    FILE* file;
-    if ((file = fopen("results.log", "a+")) == NULL) {
+    if (!write_log(result_str)){
         wprintw(win, "Не удалось открыть файл, результаты не будут записаны.");
     }
 
     wclear(win);
-    fprintf(file, "%s", result_str);
     wprintw(win, "%s\n\n", result_str);
     wprintw(win, "Нажмине F1 для выхода.\n");
-    fclose(file);
 
     free(rand_sequence);
     free(str);
