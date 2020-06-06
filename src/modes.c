@@ -92,13 +92,16 @@ int first_mode(WINDOW* win, Dictionary* d, int count)
             score / count * 100);
     strcat(result_str, temp);
 
-    if (!write_log(result_str)){
+    FILE* file;
+    if ((file = fopen("results.log", "a+")) == NULL) {
         wprintw(win, "Не удалось открыть файл, результаты не будут записаны.");
     }
 
     wclear(win);
+    fprintf(file, "%s", result_str);
     wprintw(win, "%s\n\n", result_str);
     wprintw(win, "Нажмине F1 для выхода.\n");
+    fclose(file);
 
     free(rand_sequence);
     free(str);
@@ -119,7 +122,7 @@ int second_mode(WINDOW* win, Dictionary* d, int count)
     float score = 0;
 
     char* result_str = calloc(sizeof(char), 450 + 110 * count);
-    char* temp = calloc(sizeof(char), 110);
+    char temp[110];
     char* str = calloc(sizeof(char), 21);
 
     if (result_str == NULL || temp == NULL || str == NULL) {
@@ -175,17 +178,19 @@ int second_mode(WINDOW* win, Dictionary* d, int count)
             score / count * 100);
     strcat(result_str, temp);
 
-    if (!write_log(result_str)){
+    FILE* file;
+    if ((file = fopen("results.log", "a+")) == NULL) {
         wprintw(win, "Не удалось открыть файл, результаты не будут записаны.");
     }
 
     wclear(win);
+    fprintf(file, "%s", result_str);
     wprintw(win, "%s\n\n", result_str);
     wprintw(win, "Нажмине F1 для выхода.\n");
+    fclose(file);
 
     free(rand_sequence);
     free(str);
-    free(temp);
     free(result_str);
 
     return score;
@@ -301,15 +306,16 @@ int third_mode(WINDOW* win, Dictionary* d, int count)
             score / count * 100);
     strcat(result_str, temp);
 
-
-    if (!write_log(result_str)){
+    FILE* file;
+    if ((file = fopen("results.log", "a+")) == NULL) {
         wprintw(win, "Не удалось открыть файл, результаты не будут записаны.");
     }
 
     wclear(win);
+    fprintf(file, "%s", result_str);
     wprintw(win, "%s\n\n", result_str);
     wprintw(win, "Нажмине F1 для выхода.\n");
-
+    fclose(file);
 
     free(rand_sequence);
     free(temp);
@@ -319,15 +325,4 @@ int third_mode(WINDOW* win, Dictionary* d, int count)
     free(result_str);
 
     return score;
-}
-
-int write_log(char* input){
-        FILE* file;
-    if ((file = fopen("results.log", "a+")) == NULL) {
-        return -1;
-    }
-    fprintf(file, "%s", input);
-    fclose(file);
-    
-    return 0;
 }
