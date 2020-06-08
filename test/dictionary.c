@@ -153,23 +153,6 @@ CTEST(dictionary, list_print)
     ASSERT_EQUAL(expected, real);
 }
 
-CTEST(dictionary, printDictionary)
-{
-    // Given
-    Dictionary* d = calloc(sizeof(Dictionary), 1);
-
-    // When
-    int real = dictionary_fill(d);
-
-    // Then
-    const int expected = 0;
-
-    real = dictionary_print(d);
-    dictionary_delete(d);
-
-    ASSERT_EQUAL(expected, real);
-}
-
 CTEST(dictionary, dictionary_delete)
 {
     // Given
