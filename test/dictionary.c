@@ -15,7 +15,7 @@ CTEST(dictionary, dictionary_fill)
     dictionary_delete(d);
 
     // Then
-    const int expected = 42; //words in d.txt
+    const int expected = 42; // words in d.txt
 
     ASSERT_EQUAL(expected, real);
 }
@@ -33,13 +33,13 @@ CTEST(dictionary, list_creatnode)
 
 CTEST(dictionary, list_addend)
 {
-    //Given
+    // Given
     char* str1 = strdup("forest");
     char* str2 = strdup("box");
 
     List* head = list_createnode(str1, 1);
 
-    //Then
+    // Then
     List* add = list_addend(head, str2, 2);
 
     ASSERT_NOT_NULL(add);
@@ -172,7 +172,6 @@ CTEST(dictionary, printDictionary)
 
 CTEST(dictionary, dictionary_delete)
 {
-
     // Given
     Dictionary* d = calloc(sizeof(Dictionary), 1);
 
@@ -187,7 +186,6 @@ CTEST(dictionary, dictionary_delete)
 
 CTEST(dictionary, list_delete)
 {
-
     // Given
     char* str1 = strdup("phone");
     char* str2 = strdup("box");
@@ -197,13 +195,13 @@ CTEST(dictionary, list_delete)
     // Then
     l = list_delete(l);
     l = list_delete(l);
-     
-    ASSERT_NULL(l);
 
+    ASSERT_NULL(l);
 }
 
-CTEST(dictionary, list_free) {
-   // Given
+CTEST(dictionary, list_free)
+{
+    // Given
     char* str1 = strdup("phone");
     char* str2 = strdup("box");
     List* l = list_createnode(str1, 1);
@@ -214,7 +212,6 @@ CTEST(dictionary, list_free) {
 
     // Then
     const int expected = 2;
-     
-    ASSERT_EQUAL(expected, real);
 
+    ASSERT_EQUAL(expected, real);
 }

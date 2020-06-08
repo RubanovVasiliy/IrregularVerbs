@@ -1,13 +1,10 @@
 flags = -Wall -Werror
 debug_flags = -Wall -Werror -g -O0
 
-all: clean src test debug
+all: src test debug
 
-run: clean src
-	./bin/v
-
-test_run: clean test
-	./bin/t
+run: src
+	./bin/verbs
 
 results:
 	cat results.log
@@ -16,7 +13,7 @@ results:
 #src
 
 src: bin build/src build/src/main.o build/src/dictionary.o build/src/menu.o build/src/modes.o
-	gcc $(flags) build/src/*.o  -o bin/v -lncursesw
+	gcc $(flags) build/src/*.o -o bin/verbs -lncursesw
 
 build/src:
 	mkdir -p build/src
@@ -37,7 +34,7 @@ build/src/modes.o: src/modes.c
 #debug
 
 debug: bin build/debug build/debug/main.o build/debug/dictionary.o build/debug/menu.o build/debug/modes.o
-	gcc $(debug_flags) build/debug/*.o  -o bin/d -lncursesw
+	gcc $(debug_flags) build/debug/*.o -o bin/debug -lncursesw
 
 build/debug:
 	mkdir -p build/debug
@@ -57,8 +54,8 @@ build/debug/modes.o: src/modes.c
 
 #test
 
-test: src build/test build/test/main.o build/test/dictionary.o 
-	gcc $(flags)  build/test/*.o build/src/dictionary.o -o bin/t -lncursesw
+test: build/test build/test/main.o build/test/dictionary.o 
+	gcc $(flags) build/test/*.o build/src/dictionary.o -o bin/test -lncursesw
 
 build/test:
 	mkdir -p build/test
@@ -74,7 +71,7 @@ build/test/dictionary.o: test/dictionary.c
 bin:
 	mkdir -p bin
 
-.PHONY: clean
+.PHONY: all clean
 
 clean:
 	rm -rf build bin
