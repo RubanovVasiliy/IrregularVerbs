@@ -6,6 +6,9 @@ all: src test debug
 run: src
 	./bin/verbs
 
+test_run:
+	./bin/test
+
 results:
 	cat results.log
 
